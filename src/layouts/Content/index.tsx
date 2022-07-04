@@ -3,6 +3,7 @@ import { darcula } from '@uiw/codemirror-theme-darcula';
 import CodeMirror from '@uiw/react-codemirror';
 import { useCallback } from 'react';
 import tw, { styled } from 'twin.macro';
+import ContentMenu from './ContentMenu';
 import { ContentWrapper } from './styles';
 interface IProps {}
 
@@ -26,25 +27,22 @@ const CodeWrapper = styled.div`
   }
 `;
 
-const goLang = `const CracoAlias = require('craco-alias');
-module.exports = {
-  plugins: [
-    {
-      plugin: CracoAlias,
-      options: {
-        source: 'tsconfig',
-        baseUrl: '.',
-        tsConfigPath: './tsconfig.paths.json',
-      },
-    },
-  ],
-  babel: {
-    plugins: [
-      '@emotion/babel-plugin',
-      'babel-plugin-twin',
-      'babel-plugin-macros',
-    ],
+const goLang = `{
+  name : {
+    firstName: $firstName,
+    lastName: $lastName
   },
+  address: $address,
+  // {
+  //  address: $address,
+  //  postalCode: $postalCode,
+  // },
+  account : {
+    bankName: $bankName,
+    accountNumber:$accountNumber,
+  },
+  constellation: $constellation,
+  habit: $habit,
 };
 `;
 
@@ -63,6 +61,7 @@ function Content({}: IProps) {
           extensions={[javascript({ jsx: true })]}
         />
       </CodeWrapper>
+      <ContentMenu />
     </ContentWrapper>
   );
 }

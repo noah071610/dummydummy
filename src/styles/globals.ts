@@ -115,6 +115,7 @@ export const globalStyle = () => css`
 
   body {
     background-color: #e5e5e5;
+    font-family: 'Noto Sans KR', sans-serif;
   }
 
   a {

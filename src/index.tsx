@@ -11,6 +11,10 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Global styles={globalStyle()} />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
     <App />
   </React.StrictMode>
 );
