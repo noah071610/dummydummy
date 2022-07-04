@@ -1,16 +1,25 @@
+import { FLEX } from '@styles/customStyle';
 import tw, { styled } from 'twin.macro';
 
 export const ModalWrapper = styled.div`
   ${tw`fixed top-1/2 left-1/2 z-modal
-    w-1/2 h-[800px] bg-white p-40px rounded-40px`}
-  div:first-of-type {
-    ${tw`h-[600px]`}
+    w-1/2 h-[800px] bg-white p-30px rounded-40px`}
+  ${FLEX('col')}
+  .cm-theme {
+    ${tw`w-full h-[600px]`}
   }
-  code {
-    ${tw`text-white`}
-    * {
-      ${tw`text-white`}
-    }
+  .cm-line {
+    ${tw`text-[#a9b7c6] text-18px py-3px`}
+  }
+  .cm-focused {
+    ${tw`outline-none!`}
+    outline-offset: 0;
+  }
+  .cm-editor {
+    ${tw`py-15px px-30px rounded-20px!`}
+  }
+  .cm-gutters {
+    display: none;
   }
   @keyframes fade-up {
     from {

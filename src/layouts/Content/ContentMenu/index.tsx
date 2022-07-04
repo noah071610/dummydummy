@@ -1,11 +1,18 @@
+import { javascript } from '@codemirror/lang-javascript';
 import {
   faArrowRotateLeft,
   faCircleExclamation,
+  faClipboard,
+  faClose,
+  faDiceFive,
   faGear,
   faList,
   faPenToSquare,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { accountNumberGenerator } from '@generator/accountNumberGenerator';
+import { addressGenerator } from '@generator/addressGenerator';
+import { creditCardNumberGenerator } from '@generator/creditCardNumberGenerator';
 import Modal from '@layouts/Modal';
 import {
   styled as muiStyled,
@@ -14,15 +21,23 @@ import {
   TooltipProps,
 } from '@mui/material';
 import { iconStyle } from '@styles/customStyle';
-import { useCallback, useState } from 'react';
-import { CopyBlock, dracula } from 'react-code-blocks';
+import { dracula } from '@uiw/codemirror-theme-dracula';
+import CodeMirror from '@uiw/react-codemirror';
+import { useCallback, useEffect, useState } from 'react';
+import { banks, creditCardCompanies } from 'src/resource/account';
+import { regions } from 'src/resource/address';
+import { firstNames } from 'src/resource/firstNames';
+import { lastNames } from 'src/resource/lastNames';
+import { occupations } from 'src/resource/occupations';
 import {
   ContentMenuContainer,
   InfoMessage,
   MenuIconButton,
   ModalBtnContainer,
 } from './styles';
-interface IProps {}
+interface IProps {
+  contentCode: string;
+}
 
 const menuList = [
   { label: '초기화', value: 'reset', icon: faArrowRotateLeft },
@@ -31,8 +46,65 @@ const menuList = [
   { label: '결과보기', value: 'result', icon: faPenToSquare },
 ];
 
-function ContentMenu({}: IProps) {
+const matcherList: {
+  key: string;
+  list?: any[];
+  generator?: () => string;
+  type: 'pick' | 'generate' | null;
+}[] = [
+  { key: '$firstName', list: firstNames, type: 'pick' },
+  { key: '$lastName', list: lastNames, type: 'pick' },
+  { key: '$address', generator: addressGenerator, type: 'generate' },
+  { key: '$region', list: regions, type: 'pick' },
+  { key: '$bank', list: banks, type: 'pick' },
+  { key: '$creditCardCompany', list: creditCardCompanies, type: 'pick' },
+  { key: '$occupation', list: occupations, type: 'pick' },
+  {
+    key: '$accountNumber',
+    generator: accountNumberGenerator,
+    type: 'generate',
+  },
+  {
+    key: '$creditCardNumber',
+    generator: creditCardNumberGenerator,
+    type: 'generate',
+  },
+];
+
+function matcher(origin: string) {
+  for (let i = 0; i < matcherList.length; i++) {
+    const item = matcherList[i];
+    const regExp = new RegExp(`\\${item.key}`, 'g');
+    if (origin.match(regExp)) {
+      if (item.type === 'pick' && item?.list) {
+        origin = origin.replace(
+          item.key,
+          `"${item.list[Math.floor(Math.random() * item.list.length)]}"`
+        );
+      }
+      if (item.type === 'generate' && item?.generator) {
+        origin = origin.replace(item.key, `"${item.generator()}"`);
+      }
+    }
+  }
+
+  return origin;
+}
+
+var commentRegExp = new RegExp('//.*\n', 'gm');
+
+function ContentMenu({ contentCode }: IProps) {
   const [onResultModal, setOnResultModal] = useState(false);
+  const [resultCode, setResultCode] = useState('');
+  const [isDeletingOverlay, setIsDeletingOverlay] = useState(false);
+  const closeModal = useCallback(() => {
+    setIsDeletingOverlay(true);
+    setTimeout(() => {
+      setOnResultModal((prev: boolean) => !prev);
+      setIsDeletingOverlay(false);
+    }, 180);
+  }, []);
+
   const BootstrapTooltip = muiStyled(
     ({ className, ...props }: TooltipProps) => (
       <MuiTooltip {...props} classes={{ popper: className }} />
@@ -47,6 +119,17 @@ function ContentMenu({}: IProps) {
       color: 'black',
     },
   }));
+
+  useEffect(() => {
+    if (onResultModal) {
+      setResultCode(matcher(contentCode.replace(commentRegExp, '')));
+    }
+  }, [contentCode, onResultModal]);
+
+  const onClickShuffle = useCallback(() => {
+    setResultCode(matcher(contentCode.replace(commentRegExp, '')));
+  }, [contentCode]);
+
   const onClickMenuBtn = useCallback((value: string) => {
     switch (value) {
       case 'result':
@@ -79,14 +162,13 @@ function ContentMenu({}: IProps) {
         </BootstrapTooltip>
       ))}
       {onResultModal && (
-        <Modal setOnModal={setOnResultModal}>
-          <CopyBlock
-            language={'javascript'}
-            text={`console.log('dd')`}
-            showLineNumbers={false}
+        <Modal isDeletingOverlay={isDeletingOverlay} closeModal={closeModal}>
+          <CodeMirror
+            value={resultCode}
+            height="100%"
+            onChange={() => {}}
             theme={dracula}
-            wrapLines={true}
-            codeBlock
+            extensions={[javascript({ jsx: true })]}
           />
           <InfoMessage>
             <FontAwesomeIcon
@@ -97,9 +179,18 @@ function ContentMenu({}: IProps) {
             <span>를 클릭하세요!</span>
           </InfoMessage>
           <ModalBtnContainer>
-            <button>복사 하기</button>
-            <button>다시 섞기</button>
-            <button>종료</button>
+            <button>
+              복사 하기
+              <FontAwesomeIcon style={iconStyle('18px')} icon={faClipboard} />
+            </button>
+            <button onClick={onClickShuffle}>
+              다시 섞기
+              <FontAwesomeIcon style={iconStyle('18px')} icon={faDiceFive} />
+            </button>
+            <button onClick={closeModal}>
+              닫기
+              <FontAwesomeIcon style={iconStyle('18px')} icon={faClose} />
+            </button>
           </ModalBtnContainer>
         </Modal>
       )}

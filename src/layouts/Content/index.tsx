@@ -1,7 +1,7 @@
 import { javascript } from '@codemirror/lang-javascript';
-import { darcula } from '@uiw/codemirror-theme-darcula';
+import { dracula } from '@uiw/codemirror-theme-dracula';
 import CodeMirror from '@uiw/react-codemirror';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import tw, { styled } from 'twin.macro';
 import ContentMenu from './ContentMenu';
 import { ContentWrapper } from './styles';
@@ -27,28 +27,31 @@ const CodeWrapper = styled.div`
   }
 `;
 
-const goLang = `{
+const goLang = `const myObj = {
   name : {
     firstName: $firstName,
     lastName: $lastName
   },
   address: $address,
-  // {
-  //  address: $address,
-  //  postalCode: $postalCode,
-  // },
+  region: $region,
+  occupation: $occupation,
   account : {
-    bankName: $bankName,
-    accountNumber:$accountNumber,
+    bank: $bank,
+    accountNumber: $accountNumber,
   },
+  creditCard: {
+    creditCardCompany: $creditCardCompany,
+    creditCardNumber: $creditCardNumber
+  }
   constellation: $constellation,
   habit: $habit,
 };
 `;
 
 function Content({}: IProps) {
+  const [contentCode, setContentCode] = useState(goLang);
   const onChange = useCallback((value: any) => {
-    console.log('value:', value);
+    setContentCode(value);
   }, []);
   return (
     <ContentWrapper>
@@ -57,11 +60,11 @@ function Content({}: IProps) {
           value={goLang}
           height="100%"
           onChange={onChange}
-          theme={darcula}
+          theme={dracula}
           extensions={[javascript({ jsx: true })]}
         />
       </CodeWrapper>
-      <ContentMenu />
+      <ContentMenu contentCode={contentCode} />
     </ContentWrapper>
   );
 }

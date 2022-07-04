@@ -1,27 +1,14 @@
 import Overlay from '@layouts/Overlay';
-import {
-  Dispatch,
-  ReactNode,
-  SetStateAction,
-  useCallback,
-  useState,
-} from 'react';
+import { ReactNode } from 'react';
 import { ModalWrapper } from './styles';
 
 interface IProps {
-  setOnModal: Dispatch<SetStateAction<boolean>>;
+  closeModal: () => void;
+  isDeletingOverlay: boolean;
   children: ReactNode;
 }
 
-function Modal({ setOnModal, children }: IProps) {
-  const [isDeletingOverlay, setIsDeletingOverlay] = useState(false);
-  const closeModal = useCallback(() => {
-    setIsDeletingOverlay(true);
-    setTimeout(() => {
-      setOnModal((prev: boolean) => !prev);
-      setIsDeletingOverlay(false);
-    }, 180);
-  }, []);
+function Modal({ closeModal, isDeletingOverlay, children }: IProps) {
   return (
     <>
       <Overlay
