@@ -13,6 +13,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { accountNumberGenerator } from '@generator/accountNumberGenerator';
 import { addressGenerator } from '@generator/addressGenerator';
 import { creditCardNumberGenerator } from '@generator/creditCardNumberGenerator';
+import { phoneNumberGenerator } from '@generator/phoneNumberGenerator';
 import Modal from '@layouts/Modal';
 import {
   styled as muiStyled,
@@ -25,10 +26,17 @@ import { dracula } from '@uiw/codemirror-theme-dracula';
 import CodeMirror from '@uiw/react-codemirror';
 import { useCallback, useEffect, useState } from 'react';
 import { banks, creditCardCompanies } from 'src/resource/account';
-import { regions } from 'src/resource/address';
-import { firstNames } from 'src/resource/firstNames';
-import { lastNames } from 'src/resource/lastNames';
-import { occupations } from 'src/resource/occupations';
+import { cities } from 'src/resource/address';
+import { artists, dramas, foods, movies, musics } from 'src/resource/cultures';
+import { firstNames, lastNames } from 'src/resource/names';
+import {
+  drinking,
+  gender,
+  mbti,
+  occupations,
+  smoking,
+  socialMedias,
+} from 'src/resource/profile';
 import {
   ContentMenuContainer,
   InfoMessage,
@@ -55,8 +63,19 @@ const matcherList: {
   { key: '$firstName', list: firstNames, type: 'pick' },
   { key: '$lastName', list: lastNames, type: 'pick' },
   { key: '$address', generator: addressGenerator, type: 'generate' },
-  { key: '$region', list: regions, type: 'pick' },
+  { key: '$city', list: cities, type: 'pick' },
   { key: '$bank', list: banks, type: 'pick' },
+  { key: '$phoneNumber', generator: phoneNumberGenerator, type: 'generate' },
+  { key: '$drama', list: dramas, type: 'pick' },
+  { key: '$movie', list: movies, type: 'pick' },
+  { key: '$music', list: musics, type: 'pick' },
+  { key: '$artist', list: artists, type: 'pick' },
+  { key: '$food', list: foods, type: 'pick' },
+  { key: '$drinking', list: drinking, type: 'pick' },
+  { key: '$gender', list: gender, type: 'pick' },
+  { key: '$smoking', list: smoking, type: 'pick' },
+  { key: '$socialMedia', list: socialMedias, type: 'pick' },
+  { key: '$mbti', list: mbti, type: 'pick' },
   { key: '$creditCardCompany', list: creditCardCompanies, type: 'pick' },
   { key: '$occupation', list: occupations, type: 'pick' },
   {

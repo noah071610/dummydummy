@@ -32,8 +32,9 @@ const goLang = `const myObj = {
     firstName: $firstName,
     lastName: $lastName
   },
+  gender: $gender,
   address: $address,
-  region: $region,
+  phoneNumber: $phoneNumber,
   occupation: $occupation,
   account : {
     bank: $bank,
@@ -41,10 +42,23 @@ const goLang = `const myObj = {
   },
   creditCard: {
     creditCardCompany: $creditCardCompany,
-    creditCardNumber: $creditCardNumber
-  }
-  constellation: $constellation,
-  habit: $habit,
+    creditCardNumber: $creditCardNumber,
+  },
+  smoking: $smoking,
+  drinking: $drinking,
+  socialMedia: $socialMedia,
+  mbti: $mbti,
+  culture: {
+    drama: $drama,
+    movie: $movie,
+    music: $music,
+    artist: $artist,
+    food: $food,
+  },
+  ,생일,신장,*날짜,시간,(회사명),랜덤링크,취미,아이피주소,닉네임,이메일
+  ,학력,대학교명(서울에있는대학교),금액>랜덤숫자>나이 (알고리즘 구성 필요 , 범위구성 설정을 딥하게),
+  색깔(헥스값 아니면 한국어),번호 설정할때 통신사, 지하철역(호선) , 아이디(mysql id) 
+  ,uuid ,우편번호
 };
 `;
 

@@ -1,3 +1,27 @@
+export const firstNames = [
+  '김',
+  '이',
+  '박',
+  '최',
+  '송',
+  '정',
+  '장',
+  '전',
+  '조',
+  '안',
+  '심',
+  '윤',
+  '최',
+  '황',
+  '임',
+  '오',
+  '유',
+  '양',
+  '문',
+  '남',
+  '서',
+];
+
 export const lastNames = [
   '민준',
   '서준',
@@ -1102,6 +1126,7 @@ export const lastNames = [
   '서경',
   '혜연',
 ];
+
 export const lastNamesOfMan = [
   '민준',
   '서준',
@@ -2104,6 +2129,7 @@ export const lastNamesOfMan = [
   '한빛',
   '필립',
 ];
+
 export const lastNamesOfGirl = [
   '서연',
   '서윤',
@@ -3106,3 +3132,5 @@ export const lastNamesOfGirl = [
   '나온',
   '시후',
 ];
+
+// 줄이기

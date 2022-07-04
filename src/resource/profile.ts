@@ -1,3 +1,27 @@
+export const gender = ['남성', '여성'];
+
+export const smoking = ['비흡연', '1~5개비', '6~10개비', '한갑', '두갑'];
+
+export const drinking = [
+  '음주를 하지 않음',
+  '1병',
+  '1~5잔',
+  '2병',
+  '3~4병',
+  '5병 이상',
+];
+
+export const socialMedias = [
+  '인스타그램',
+  '페이스북',
+  '네이버 카페',
+  '트위터',
+  '밴드',
+  '다음 카페',
+  '카카오 스토리',
+  '싸이월드',
+];
+
 export const occupations = [
   '도선사',
   '기업고위임원',
@@ -620,4 +644,23 @@ export const occupations = [
   '경비원',
   '설문조사원',
   '전도사',
+];
+
+export const mbti = [
+  'ENFJ',
+  'ENTJ',
+  'ENFP',
+  'ENTP',
+  'ESFP',
+  'ESFJ',
+  'ESTP',
+  'ESTJ',
+  'INFP',
+  'INFJ',
+  'INTP',
+  'ISTP',
+  'ISFP',
+  'ISFJ',
+  'ISTJ',
+  'INTJ',
 ];
