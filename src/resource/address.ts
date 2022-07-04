@@ -1,4 +1,4 @@
-export const regions = [
+export const cities = [
   '서울특별시',
   '부산광역시',
   '대구광역시',
@@ -18,7 +18,7 @@ export const regions = [
   '제주특별자치도',
 ];
 
-export const cities: { [key: string]: string[] } = {
+export const regions: { [key: string]: string[] } = {
   서울특별시: [
     '종로구 청운효자동',
     '종로구 사직동',
