@@ -18,7 +18,8 @@
       "@layouts/*": ["src/layouts/*"],
       "@config/*": ["src/config/*"],
       "@state/*": ["src/state/*"],
-      "@generator/*": ["src/generator/*"]
+      "@generator/*": ["src/generator/*"],
+      "@resource/*": ["src/resource/*"]
     },
     "isolatedModules": true,
     "jsxImportSource": "@emotion/react"

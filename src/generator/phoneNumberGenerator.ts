@@ -1,24 +1,24 @@
+const regionalNum = [
+  '02',
+  '031',
+  '032',
+  '033',
+  '041',
+  '042',
+  '043',
+  '044',
+  '051',
+  '052',
+  '053',
+  '054',
+  '055',
+  '061',
+  '062',
+  '063',
+  '064',
+];
 export const phoneNumberGenerator = (isRegional?: boolean) => {
   let num = '-XXXX';
-  const regionalNum = [
-    '02',
-    '031',
-    '032',
-    '033',
-    '041',
-    '042',
-    '043',
-    '044',
-    '051',
-    '052',
-    '053',
-    '054',
-    '055',
-    '061',
-    '062',
-    '063',
-    '064',
-  ];
   if (isRegional) {
     num =
       `${regionalNum[Math.floor(Math.random() * regionalNum.length)]}-XXX` +

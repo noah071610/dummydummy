@@ -111,11 +111,11 @@ export const globalStyle = () => css`
     outline: none;
     line-height: 1em;
     box-sizing: border-box;
+    font-family: 'Noto Sans KR', sans-serif;
   }
 
   body {
     background-color: #e5e5e5;
-    font-family: 'Noto Sans KR', sans-serif;
   }
 
   a {

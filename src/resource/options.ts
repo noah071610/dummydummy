@@ -1,4 +1,4 @@
-[
+export const domains = [
   '.app',
   '.cat',
   '.com',

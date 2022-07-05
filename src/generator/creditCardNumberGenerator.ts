@@ -1,5 +1,6 @@
+const type = 'XXXX-XXXX-XXXX-XXXX';
+
 export const creditCardNumberGenerator = () => {
-  const type = 'XXXX-XXXX-XXXX-XXXX';
   let answer = '';
   for (let i = 0; i < type.length; i++) {
     if (type[i] === 'X') {

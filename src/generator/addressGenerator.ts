@@ -1,4 +1,4 @@
-import { apartments, cities, regions } from 'src/resource/address';
+import { apartments, cities, regions } from '@resource/address';
 
 export const addressGenerator = () => {
   const city = cities[Math.floor(Math.random() * cities.length)];

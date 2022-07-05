@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
 import tw, { styled } from 'twin.macro';
 
 const OverlayWrapper = styled.div<{ isDeletingOverlay: boolean }>`
@@ -35,18 +35,6 @@ function Overlay({ close, zIndex, isDeletingOverlay }: IProps) {
     close();
   }, []);
 
-  useEffect(() => {
-    document.body.style.cssText = `position: fixed; top: -${
-      window.scrollY
-    }px; left:${
-      window.innerWidth <= 1220 ? 0 : (window.innerWidth - 1220) / 2
-    }px;`;
-    return () => {
-      const scrollY = document.body.style.top;
-      document.body.style.cssText = `position: ""; top: "";`;
-      window.scrollTo(0, parseInt(scrollY || '0') * -1);
-    };
-  });
   return (
     <OverlayWrapper
       isDeletingOverlay={isDeletingOverlay}
