@@ -7,6 +7,7 @@ import {
   faPaste,
   faUser,
   faUserPen,
+  IconDefinition,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { triggerList } from '@resource/triggers';
@@ -19,9 +20,21 @@ import SubMenu from './SubMenu';
 
 interface IProps {}
 
-const menuList = [
+interface SubMenuType {
+  label?: string;
+  value: string;
+  icon?: IconDefinition;
+}
+
+export interface MenuType {
+  label: string;
+  value: 'dash' | 'trigger' | 'template';
+  icon: IconDefinition;
+  subMenu?: SubMenuType[];
+}
+
+const menuList: MenuType[] = [
   {
-    isDashboard: true,
     label: '대시보드',
     value: 'dash',
     icon: faFile,
@@ -31,28 +44,28 @@ const menuList = [
     value: 'template',
     subMenu: [
       {
-        value: '유저정보',
-        link: '#template-user',
+        label: '유저정보',
+        value: 'user',
         icon: faAddressCard,
       },
       {
-        value: '쇼핑몰',
-        link: '#template-shop',
+        label: '쇼핑몰',
+        value: 'shop',
         icon: faCartShopping,
       },
       {
-        value: '자기소개',
-        link: '#template-introduce',
+        label: '자기소개',
+        value: 'introduce',
         icon: faUser,
       },
       {
-        value: '이력서',
-        link: '#template-resume',
+        label: '이력서',
+        value: 'resume',
         icon: faUserPen,
       },
       {
-        value: '결제페이지',
-        link: '#template-pricing',
+        label: '결제정보',
+        value: 'pricing',
         icon: faCreditCard,
       },
     ],
@@ -77,7 +90,6 @@ function Nav({}: IProps) {
         : 'dash',
     [curPageData]
   );
-  console.log(curPage);
 
   const onClickDashboardMenu = useCallback(() => {
     setCurPageState('/');
@@ -87,7 +99,7 @@ function Nav({}: IProps) {
     <NavWrapper>
       <MenuList>
         {menuList.map((v, i) => {
-          if (v.isDashboard) {
+          if (v.value === 'dash') {
             return (
               <li
                 className={`main_menu ${
@@ -104,7 +116,16 @@ function Nav({}: IProps) {
               </li>
             );
           } else {
-            return <SubMenu menu={v} key={`menu-${i}`} />;
+            return (
+              <SubMenu
+                className={`main_menu ${
+                  curPage === v.value ? 'is-active' : ''
+                }`}
+                type={v.value}
+                menu={v}
+                key={`menu-${i}`}
+              />
+            );
           }
         })}
       </MenuList>

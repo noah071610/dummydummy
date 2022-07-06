@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+import tw from 'twin.macro';
 
 export const globalStyle = () => css`
   html,
@@ -153,6 +154,24 @@ export const globalStyle = () => css`
     margin: 0;
     cursor: pointer;
     color: #332226;
+  }
+
+  .cm-line {
+    ${tw`text-[#a9b7c6]! text-18px! py-3px!`}
+    font-family: monospace !important;
+    * {
+      font-family: monospace !important;
+    }
+  }
+  .cm-focused {
+    ${tw`outline-none!`}
+    outline-offset: 0 !important;
+  }
+  .cm-editor {
+    ${tw`py-15px! px-30px! rounded-20px!`}
+  }
+  .cm-gutters {
+    display: none !important;
   }
 
   input,

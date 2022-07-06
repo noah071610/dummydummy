@@ -1,37 +1,36 @@
-import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faDollarSign } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import useToggle from '@hooks/useToggle';
 import { curPageState } from '@states';
 import { iconStyle } from '@styles/customStyle';
 import { useCallback } from 'react';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
+import { MenuType } from '..';
 import { MenuIcon } from '../styles';
 import { SubMenuList, SubMenuWrapper } from './styles';
 
 interface IProps {
-  menu: Menu;
+  menu: MenuType;
+  className: string;
+  type: 'trigger' | 'template';
 }
 
-interface Menu {
-  label: string;
-  value: string;
-  subMenu?: any[];
-  icon: IconDefinition;
-}
-
-function SubMenu({ menu }: IProps) {
+function SubMenu({ className, menu, type }: IProps) {
   const [isOpenedSubMenuList, onChangeSubMenuList] = useToggle(false);
-  const setCurPageState = useSetRecoilState(curPageState);
-  const onClickSubMenu = useCallback((link: string) => {
-    setCurPageState(link);
-    window.location.hash = `${link}`;
-  }, []);
+  const [curPage, setCurPageState] = useRecoilState(curPageState);
+  const onClickSubMenu = useCallback(
+    (link: string) => {
+      setCurPageState(`#${type}-${link}`);
+      window.location.hash = `#${type}-${link}`;
+    },
+    [type]
+  );
 
   return (
     <SubMenuWrapper>
       <li
         className={
-          isOpenedSubMenuList ? 'main_menu open-main_menu' : 'main_menu'
+          isOpenedSubMenuList ? className + ' open-main_menu' : className
         }
         onClick={onChangeSubMenuList}
       >
@@ -45,13 +44,16 @@ function SubMenu({ menu }: IProps) {
       <SubMenuList className={isOpenedSubMenuList ? 'open-sub_menu' : ''}>
         {menu.subMenu?.map((k, j) => (
           <li key={`subMenu-${j}`}>
-            <button onClick={() => onClickSubMenu(k.link)}>
+            <button
+              className={curPage.includes(k.value) ? 'is-active' : ''}
+              onClick={() => onClickSubMenu(k.value)}
+            >
               <FontAwesomeIcon
-                className={k.link.includes('/trigger') ? 'trigger-svg' : ''}
-                icon={k.icon}
+                className={!k.label ? 'trigger-svg' : ''}
+                icon={k?.icon ? k.icon : faDollarSign}
                 style={iconStyle('16px')}
               />
-              <span>{k.value}</span>
+              <span>{k.label ?? k.value}</span>
             </button>
           </li>
         ))}

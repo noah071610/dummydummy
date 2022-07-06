@@ -1,6 +1,6 @@
-import APISection from '@sections/API';
 import DashboardSection from '@sections/Dashboard';
 import TemplateSection from '@sections/Template';
+import APISection from '@sections/Trigger';
 import { curPageState, dashboardState } from '@states';
 import { FLEX, GRID, MQ } from '@styles/customStyle';
 import 'animate.css';

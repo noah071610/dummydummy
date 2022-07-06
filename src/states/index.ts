@@ -32,16 +32,16 @@ export const templateState = atom<{
         gender: $gender,
         age: $age,
         birthday: $date,
-      }`,
+      };`,
       shop: `const product = {
         name: $product,
         seller: $fullName,
         brand: $company,
         date: $date,
         review: $number,
-        size: $number x $number x $number,
+        size: [$number,$number,$number],
         color: $color
-    }`,
+    };`,
       introduce: `const product = {
         name: $product,
         seller: $fullName,
@@ -50,7 +50,7 @@ export const templateState = atom<{
         review: $number,
         size: $number x $number x $number,
         color: $color
-    }`,
+    };`,
       resume: `const product = {
         name: $product,
         seller: $fullName,
@@ -59,7 +59,7 @@ export const templateState = atom<{
         review: $number,
         size: $number x $number x $number,
         color: $color
-    }`,
+    };`,
       pricing: ``,
     },
   },

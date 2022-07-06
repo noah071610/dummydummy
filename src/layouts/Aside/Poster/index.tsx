@@ -31,8 +31,8 @@ function Poster({}: IProps) {
         <ProfileContainer>
           <Icon />
           <SocialContainer>
-            {socials.map((v) => (
-              <SocialIcon></SocialIcon>
+            {socials.map((v, i) => (
+              <SocialIcon key={`social-${i}`}></SocialIcon>
             ))}
           </SocialContainer>
         </ProfileContainer>

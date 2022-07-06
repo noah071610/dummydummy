@@ -8,12 +8,12 @@ import {
   TooltipProps,
 } from '@mui/material';
 import { templateNames } from '@resource/templates';
-import { curPageState, templateState } from '@states';
+import { curPageState, dashboardState, templateState } from '@states';
 import { iconStyle } from '@styles/customStyle';
 import { dracula } from '@uiw/codemirror-theme-dracula';
 import CodeMirror from '@uiw/react-codemirror';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { dummyMatcher } from 'src/utils/dummyMatcher';
 import {
   TemplateCode,
@@ -24,7 +24,8 @@ import {
 interface IProps {}
 
 function TemplateSection({}: IProps) {
-  const curPage = useRecoilValue(curPageState);
+  const [curPage, setCurPageState] = useRecoilState(curPageState);
+  const setDashboardState = useSetRecoilState(dashboardState);
   const curTemplateName = useMemo(
     () => (curPage.includes('template-') ? curPage.split('-')[1] : 'user'),
     [curPage]
@@ -65,6 +66,15 @@ function TemplateSection({}: IProps) {
     }
   }, [curTemplateName, templates]);
 
+  const onClickCopyTemplate = useCallback(() => {
+    setCurPageState('/');
+    window.location.hash = `dashboard`;
+    setDashboardState((prev) => ({
+      ...prev,
+      code: templates[curTemplateName],
+    }));
+  }, [curTemplateName, templates]);
+
   return (
     <TemplateSectionWrapper>
       <TemplateCode>
@@ -84,7 +94,7 @@ function TemplateSection({}: IProps) {
           extensions={[javascript({ jsx: true })]}
         />
         <BootstrapTooltip title="대시보드로 복사" placement="top" arrow>
-          <TemplateIconButton className="copy">
+          <TemplateIconButton onClick={onClickCopyTemplate} className="copy">
             <FontAwesomeIcon style={iconStyle('18px')} icon={faClipboard} />
           </TemplateIconButton>
         </BootstrapTooltip>

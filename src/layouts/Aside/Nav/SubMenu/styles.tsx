@@ -19,7 +19,7 @@ export const SubMenuList = styled.ul`
   li {
     ${tw`mx-10px`}
     button {
-      ${tw`relative pb-2px w-full text-left py-13px pl-50px rounded-15px`}
+      ${tw`relative pb-2px mb-3px w-full text-left py-13px pl-50px rounded-15px`}
       &:before {
         ${tw`absolute rounded-full bg-primary-deep 
         w-7px h-7px top-1/2 left-30px z-10`}
@@ -36,13 +36,18 @@ export const SubMenuList = styled.ul`
         ${tw`mr-3px`}
       }
       &:hover {
-        ${tw`bg-primary-soft`}
         span,
-          svg {
+        svg {
           ${tw`text-primary-deep`}
         }
         svg {
           transform: rotateY(360deg);
+        }
+      }
+      &.is-active {
+        span,
+        svg {
+          ${tw`text-primary-deep`}
         }
       }
     }

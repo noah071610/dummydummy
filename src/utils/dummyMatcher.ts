@@ -111,7 +111,9 @@ export function dummyMatcher(origin: string) {
       if (item?.list) {
         origin = origin.replaceAll(item.key, () => {
           if (item.list) {
-            return item.list[Math.floor(Math.random() * item.list.length)];
+            const result =
+              item.list[Math.floor(Math.random() * item.list.length)];
+            return isNaN(Number(result)) ? `"${result}"` : result;
           } else {
             return '';
           }
@@ -120,7 +122,8 @@ export function dummyMatcher(origin: string) {
       if (item?.generator) {
         origin = origin.replaceAll(item.key, () => {
           if (item.generator) {
-            return item.generator();
+            const result = item.generator();
+            return isNaN(Number(result)) ? `"${result}"` : result;
           } else {
             return '';
           }

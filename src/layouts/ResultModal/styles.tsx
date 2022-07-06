@@ -8,19 +8,6 @@ export const ResultModalWrapper = styled.div`
   .cm-theme {
     ${tw`w-full h-[600px]`}
   }
-  .cm-line {
-    ${tw`text-[#a9b7c6] text-18px py-3px`}
-  }
-  .cm-focused {
-    ${tw`outline-none!`}
-    outline-offset: 0;
-  }
-  .cm-editor {
-    ${tw`py-15px px-30px rounded-20px!`}
-  }
-  .cm-gutters {
-    display: none;
-  }
   @keyframes fade-up {
     from {
       opacity: 0;
