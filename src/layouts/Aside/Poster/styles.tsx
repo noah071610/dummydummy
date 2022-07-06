@@ -17,7 +17,7 @@ export const ProfileContainer = styled.div`
   width: calc(100% - 30px);
 `;
 export const Icon = styled.div`
-  ${tw`bg-primary rounded-15px`}
+  ${tw`bg-primary-deep rounded-15px`}
 `;
 export const SocialContainer = styled.div`
   ${tw`m-15px`}

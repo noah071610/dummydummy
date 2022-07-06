@@ -9,7 +9,7 @@
       "@styles/*": ["src/styles/*"],
       "@layouts/*": ["src/layouts/*"],
       "@config/*": ["src/config/*"],
-      "@state/*": ["src/state/*"],
+      "@states": ["src/states/index"],
       "@generator/*": ["src/generator/*"],
       "@resource/*": ["src/resource/*"]
     }

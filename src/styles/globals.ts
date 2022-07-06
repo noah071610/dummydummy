@@ -168,4 +168,24 @@ export const globalStyle = () => css`
       color: rgba(0, 0, 0, 0.4);
     }
   }
+
+  @keyframes flip {
+    from {
+      transform: rotateY(0);
+    }
+
+    to {
+      transform: rotateY(360deg);
+    }
+  }
+
+  @keyframes dicing {
+    from {
+      transform: rotateZ(0);
+    }
+
+    to {
+      transform: rotateZ(720deg);
+    }
+  }
 `;
