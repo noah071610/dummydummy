@@ -53,10 +53,12 @@ function getHex() {
 function getRGBA() {
   return `rgba(${Math.floor(Math.random() * 256)},${Math.floor(
     Math.random() * 256
-  )},${Math.floor(Math.random() * 256)},${(Math.random() * 11).toFixed(1)})`;
+  )},${Math.floor(Math.random() * 256)}, 0.${Math.floor(
+    Math.random() * (10 - 1) + 1
+  )})`;
 }
 
-export const colorGenerator = (format: 'hex' | 'ko' | 'rgba') => {
+export const colorGenerator = (format?: 'hex' | 'rgba') => {
   return format === 'hex'
     ? getHex()
     : format === 'rgba'

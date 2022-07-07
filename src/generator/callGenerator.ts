@@ -17,9 +17,9 @@ const regionalNum = [
   '063',
   '064',
 ];
-export const phoneNumberGenerator = (isRegional?: boolean) => {
+export const callGenerator = (type?: 'local' | 'num') => {
   let num = '-XXXX';
-  if (isRegional) {
+  if (type === 'local') {
     num =
       `${regionalNum[Math.floor(Math.random() * regionalNum.length)]}-XXX` +
       num;
@@ -34,5 +34,5 @@ export const phoneNumberGenerator = (isRegional?: boolean) => {
       answer += num[i];
     }
   }
-  return answer;
+  return type === 'num' ? answer.replace(/\-/g, '') : answer;
 };

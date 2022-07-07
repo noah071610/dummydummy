@@ -9,7 +9,7 @@ function TriggerSection({}: IProps) {
     <TriggerSectionWrapper>
       <h1>트리거 API 목록</h1>
       {triggerList.map((v) => (
-        <TriggerList name={v.value} desc={v.desc} example={v.example} />
+        <TriggerList name={v.value} desc={v.desc} options={v.options} />
       ))}
     </TriggerSectionWrapper>
   );

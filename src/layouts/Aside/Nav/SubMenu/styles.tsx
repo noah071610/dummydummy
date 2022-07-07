@@ -9,7 +9,7 @@ export const SubMenuList = styled.ul`
   &.open-sub_menu {
     ${tw`py-10px h-auto opacity-100`}
     transition: max-height 1.2s ease-out, opacity 0.18s linear,padding 0.3s;
-    max-height: 1600px;
+    max-height: 3000px;
   }
   &:before {
     ${tw`absolute -top-30px w-2px h-full left-39px bg-primary-soft

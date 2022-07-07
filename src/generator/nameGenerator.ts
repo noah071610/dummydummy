@@ -1,7 +1,7 @@
 import { firstNames, lastNames } from '@resource/names';
 
 export const nameGenerator = (
-  type: 'full' | 'first' | 'last' | 'withGender'
+  type: 'full' | 'first' | 'last' | 'gender' | undefined
 ) => {
   const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
   const gender = Math.floor(Math.random() * 2 + 1) === 1 ? '남성' : '여성';
@@ -14,9 +14,9 @@ export const nameGenerator = (
       return `${firstName}`;
     case 'last':
       return `${lastName}`;
-    case 'withGender':
+    case 'gender':
       return `${firstName}${lastName}(${gender})`;
     default:
-      return '이름없음';
+      return `${firstName}${lastName}`;
   }
 };

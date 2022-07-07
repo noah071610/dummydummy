@@ -1,6 +1,6 @@
 import DashboardSection from '@sections/Dashboard';
 import TemplateSection from '@sections/Template';
-import APISection from '@sections/Trigger';
+import TriggerSection from '@sections/Trigger';
 import { curPageState, dashboardState } from '@states';
 import { FLEX, GRID, MQ } from '@styles/customStyle';
 import 'animate.css';
@@ -51,7 +51,7 @@ function App() {
           <ContentInner curPage={curPage}>
             <DashboardSection />
             <TemplateSection />
-            <APISection />
+            <TriggerSection />
           </ContentInner>
         </ContentWrapper>
       </Main>

@@ -1,5 +1,6 @@
 import { accountNumberGenerator } from '@generator/accountNumberGenerator';
 import { addressGenerator } from '@generator/addressGenerator';
+import { callGenerator } from '@generator/callGenerator';
 import { colorGenerator } from '@generator/colorGenerator';
 import { creditCardNumberGenerator } from '@generator/creditCardNumberGenerator';
 import { dateGenerator } from '@generator/dateGenerator';
@@ -8,7 +9,6 @@ import { ipGenerator } from '@generator/ipGenerator';
 import { linkGenerator } from '@generator/linkGenerator';
 import { nameGenerator } from '@generator/nameGenerator';
 import { numberRangeGenerator } from '@generator/numberRangeGenerator';
-import { phoneNumberGenerator } from '@generator/phoneNumberGenerator';
 import { postalCodeGenerator } from '@generator/postalCodeGenerator';
 import { priceRangeGenerator } from '@generator/priceGenerator';
 import { uuidGenerator } from '@generator/uuidGenerator';
@@ -35,32 +35,37 @@ const commentRegExp = new RegExp('//.*\n', 'gm');
 const matcherList: {
   key: string;
   list?: any[];
-  generator?: () => string;
+  generator?: (type?: any) => string;
 }[] = [
   { key: '$firstName', generator: () => nameGenerator('first') },
   { key: '$lastName', generator: () => nameGenerator('last') },
-  { key: '$fullName', generator: () => nameGenerator('full') },
+  {
+    key: '$fullName',
+    generator: (type?: 'full' | 'first' | 'last' | 'gender') =>
+      nameGenerator(type),
+  },
   { key: '$product', list: products },
-  { key: '$nameWithGender', generator: () => nameGenerator('withGender') },
   { key: '$address', generator: addressGenerator },
   { key: '$link', generator: linkGenerator },
   { key: '$city', list: cities },
   { key: '$bank', list: banks },
-  { key: '$phoneNumber', generator: phoneNumberGenerator },
+  { key: '$call', generator: (type?: 'local' | 'num') => callGenerator(type) },
   { key: '$uuid', generator: uuidGenerator },
   { key: '$ip', generator: ipGenerator },
   { key: '$drama', list: dramas },
   { key: '$movie', list: movies },
   { key: '$music', list: musics },
   { key: '$company', list: companies },
+  { key: '$region', generator: () => addressGenerator(true) },
   {
-    key: '$height',
-    generator: () => numberRangeGenerator('height', [150, 185]),
+    key: '$tall',
+    generator: () => numberRangeGenerator('tall', [150, 185]),
   },
   { key: '$age', generator: () => numberRangeGenerator('age', [15, 50]) },
   {
     key: '$number',
-    generator: () => numberRangeGenerator('random', [0, 1000]),
+    generator: (type?: any) =>
+      numberRangeGenerator('random', [0, 100000], type === 'comma'),
   },
   { key: '$university', list: universities },
   { key: '$education', list: education },
@@ -68,7 +73,7 @@ const matcherList: {
   { key: '$email', generator: emailGenerator },
   {
     key: '$date',
-    generator: () => dateGenerator('YYYYMMDD', []),
+    generator: (type?: '-' | '/' | 'ko') => dateGenerator(type),
   },
   { key: '$artist', list: artists },
   { key: '$food', list: foods },
@@ -80,11 +85,14 @@ const matcherList: {
   { key: '$creditCardCompany', list: creditCardCompanies },
   { key: '$occupation', list: occupations },
   { key: '$mobileCarrier', list: mobileCarrier },
-  { key: '$color', generator: () => colorGenerator('hex') },
+  {
+    key: '$color',
+    generator: (type?: 'hex' | 'rgba') => colorGenerator(type),
+  },
   {
     key: '$price',
     generator: () =>
-      priceRangeGenerator([0, 50000], {
+      priceRangeGenerator([0, 500000], {
         gap: 1000,
         comma: true,
         suffix: '원',
@@ -102,35 +110,63 @@ const matcherList: {
   },
 ];
 
+function getArrLen(matchedKey: string, targetListLen: number) {
+  const hasArrayKey = matchedKey.match(/\[[1-9]+\]/);
+  if (hasArrayKey) {
+    const arrLen = Number(hasArrayKey[0].replace(/\[|\]/g, ''));
+    if (arrLen <= 1) return 1;
+    if (arrLen >= targetListLen) return targetListLen;
+    return arrLen + 1;
+  } else {
+    return 1;
+  }
+}
+
+function getOption(matchedKey: string) {
+  const hasOptionKey = matchedKey.match(/\(.+\)/);
+  if (hasOptionKey) {
+    return hasOptionKey[0].replace(/\(|\)/g, '');
+  }
+}
+
 export function dummyMatcher(origin: string) {
   origin = origin.replace(commentRegExp, '');
   for (let i = 0; i < matcherList.length; i++) {
     const item = matcherList[i];
-    const regExp = new RegExp(`(\\${item.key})`, 'gm');
-    if (origin.match(regExp)) {
+    const regExp = new RegExp(`\\${item.key}(\\(.+\\))?(\\[[0-9]*\\])?`, 'gm');
+    const matchedKey = origin.match(regExp);
+
+    if (matchedKey) {
       if (item?.list) {
-        origin = origin.replaceAll(item.key, () => {
-          if (item.list) {
-            const result =
-              item.list[Math.floor(Math.random() * item.list.length)];
-            return isNaN(Number(result)) ? `"${result}"` : result;
-          } else {
-            return '';
+        const targetLen = item.list.length;
+        const arrLen = getArrLen(matchedKey[0], targetLen);
+        origin = origin.replaceAll(regExp, () => {
+          let temp = [];
+          for (let i = 0; i < arrLen; i++) {
+            if (item.list) {
+              const result = item.list[Math.floor(Math.random() * targetLen)];
+              temp.push(isNaN(Number(result)) ? `'${result}'` : result);
+            }
           }
+          return `${arrLen === 1 ? temp[0] : '[' + temp + ']'}`;
         });
       }
       if (item?.generator) {
-        origin = origin.replaceAll(item.key, () => {
-          if (item.generator) {
-            const result = item.generator();
-            return isNaN(Number(result)) ? `"${result}"` : result;
-          } else {
-            return '';
+        origin = origin.replaceAll(regExp, () => {
+          const arrLen = getArrLen(matchedKey[0], 100);
+          const option = getOption(matchedKey[0]);
+          let temp = [];
+          for (let i = 0; i < arrLen; i++) {
+            if (item.generator) {
+              const result = item.generator(option);
+              temp.push(isNaN(Number(result)) ? `'${result}'` : result);
+            }
           }
+
+          return `${arrLen === 1 ? temp[0] : '[' + temp + ']'}`;
         });
       }
     }
   }
-
   return origin;
 }

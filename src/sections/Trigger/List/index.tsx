@@ -1,33 +1,64 @@
+import { useCallback, useState } from 'react';
+import { dummyMatcher } from 'src/utils/dummyMatcher';
+import OptionTriggerList from './OptionTriggerList';
 import {
   CodeBlock,
   Left,
+  OptionalTriggerWrapper,
   Right,
   TitleWrapper,
+  TriggerBox,
   TriggerListWrapper,
 } from './styles';
+
+interface TriggerOptions {
+  value: string;
+  desc: string;
+}
 
 interface IProps {
   name: string;
   desc: string;
-  example: string;
+  options?: TriggerOptions[];
 }
 
-function TriggerList({ name, desc, example }: IProps) {
+function TriggerList({ name, desc, options }: IProps) {
+  const [mainTriggerExample, setMainTriggerExample] = useState(
+    dummyMatcher(`$${name}`)
+  );
+
+  const onClickMainTriggerCodeBlock = useCallback(() => {
+    setMainTriggerExample(dummyMatcher(`$${name}`));
+  }, [name]);
+
   return (
     <TriggerListWrapper id={`#trigger-${name}`}>
-      <Left>
-        <TitleWrapper>
-          <h2>${name}</h2>
-        </TitleWrapper>
-        <p>{desc} 반환합니다.</p>
-      </Left>
-      <Right>
-        <CodeBlock>
-          <span className="trigger-text">${name}</span>
-          <span className="arrow">👇</span>
-          <span className="result-text">{example} ...</span>
-        </CodeBlock>
-      </Right>
+      <TriggerBox>
+        <Left>
+          <TitleWrapper>
+            <h2>${name}</h2>
+          </TitleWrapper>
+          <p>{desc} 반환합니다.</p>
+        </Left>
+        <Right>
+          <CodeBlock onClick={onClickMainTriggerCodeBlock}>
+            <span className="trigger-text">${name}</span>
+            <span className="arrow">👇</span>
+            <span className="result-text">{mainTriggerExample}</span>
+          </CodeBlock>
+        </Right>
+      </TriggerBox>
+      {options && (
+        <OptionalTriggerWrapper>
+          {options.map((v, i) => (
+            <OptionTriggerList
+              name={name}
+              option={v}
+              key={`optional-trigger-${i}`}
+            />
+          ))}
+        </OptionalTriggerWrapper>
+      )}
     </TriggerListWrapper>
   );
 }

@@ -3,7 +3,7 @@ import tw, { styled } from 'twin.macro';
 
 export const ResultModalWrapper = styled.div`
   ${tw`fixed top-1/2 left-1/2 z-modal
-    w-1/2 h-[800px] bg-white p-30px rounded-40px`}
+    w-[900px] h-[800px] bg-white p-30px rounded-40px`}
   ${FLEX('col')}
   .cm-theme {
     ${tw`w-full h-[600px]`}
