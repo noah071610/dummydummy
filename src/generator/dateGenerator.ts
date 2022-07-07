@@ -4,7 +4,7 @@ import dayjsRandom from 'dayjs-random';
 
 dayjs.extend(dayjsRandom);
 
-export const dateGenerator = (format?: '-' | '/' | 'yy' | 'ko') => {
+export const dateGenerator = (format?: 'hyphen' | 'slash' | 'yy' | 'ko') => {
   if (!format) {
     return (
       (dayjs as any)
@@ -17,9 +17,9 @@ export const dateGenerator = (format?: '-' | '/' | 'yy' | 'ko') => {
   return (dayjs as any)
     .between('1994-01-01', '2015-12-31')
     .format(
-      format === '-'
+      format === 'hyphen'
         ? 'YYYY-MM-DD'
-        : format === '/'
+        : format === 'slash'
         ? 'YYYY/MM/DD'
         : format === 'yy'
         ? 'YYMMDD'

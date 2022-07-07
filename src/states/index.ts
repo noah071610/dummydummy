@@ -24,42 +24,42 @@ export const templateState = atom<{
   default: {
     templates: {
       user: `const user = {
-        name : {
-            firstName: $firstName,
-            lastName: $lastName,
-        },
-        email: $email,
-        gender: $gender,
-        age: $age,
-        birthday: $date,
-      };`,
+  name: {
+    firstName: $firstName,
+    lastName: $lastName,
+  },
+  email: $email,
+  gender: $gender,
+  age: $age,
+  birthday: $date,
+};`,
       shop: `const product = {
-        name: $product,
-        seller: $fullName,
-        brand: $company,
-        date: $date,
-        review: $number,
-        size: [$number,$number,$number],
-        color: $color
-    };`,
+  name: $product,
+  seller: $fullName,
+  brand: $company,
+  date: $date,
+  review: $number,
+  size: [$number,$number,$number],
+  color: $color
+};`,
       introduce: `const product = {
-        name: $product,
-        seller: $fullName,
-        brand: $company,
-        date: $date,
-        review: $number,
-        size: $number x $number x $number,
-        color: $color
-    };`,
+  name: $product,
+  seller: $fullName,
+  brand: $company,
+  date: $date,
+  review: $number,
+  size: $number x $number x $number,
+  color: $color
+};`,
       resume: `const product = {
-        name: $product,
-        seller: $fullName,
-        brand: $company,
-        date: $date,
-        review: $number,
-        size: $number x $number x $number,
-        color: $color
-    };`,
+  name: $product,
+  seller: $fullName,
+  brand: $company,
+  date: $date,
+  review: $number,
+  size: $number x $number x $number,
+  color: $color
+};`,
       pricing: ``,
     },
   },

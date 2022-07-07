@@ -30,11 +30,11 @@ export const triggerList = [
     desc: '한글 날짜를',
     options: [
       {
-        value: '-',
+        value: 'hyphen',
         desc: 'YYYY-MM-DD 형식의 날짜를 반홥합니다.',
       },
       {
-        value: '/',
+        value: 'slash',
         desc: 'YYYY/MM/DD 형식의 날짜를 반홥합니다.',
       },
       {

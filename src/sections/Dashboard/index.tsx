@@ -14,6 +14,7 @@ function DashboardSection({}: IProps) {
   const onChangeDashboardCode = useCallback((value: any) => {
     setDashboardState((prev) => ({ ...prev, code: value }));
   }, []);
+
   return (
     <DashboardSectionWrapper>
       <CodeMirror

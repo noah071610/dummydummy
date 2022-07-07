@@ -73,7 +73,7 @@ const matcherList: {
   { key: '$email', generator: emailGenerator },
   {
     key: '$date',
-    generator: (type?: '-' | '/' | 'ko') => dateGenerator(type),
+    generator: (type?: 'slash' | 'hyphen' | 'ko') => dateGenerator(type),
   },
   { key: '$artist', list: artists },
   { key: '$food', list: foods },
@@ -115,8 +115,7 @@ function getArrLen(matchedKey: string, targetListLen: number) {
   if (hasArrayKey) {
     const arrLen = Number(hasArrayKey[0].replace(/\[|\]/g, ''));
     if (arrLen <= 1) return 1;
-    if (arrLen >= targetListLen) return targetListLen;
-    return arrLen + 1;
+    return arrLen;
   } else {
     return 1;
   }
@@ -133,7 +132,10 @@ export function dummyMatcher(origin: string) {
   origin = origin.replace(commentRegExp, '');
   for (let i = 0; i < matcherList.length; i++) {
     const item = matcherList[i];
-    const regExp = new RegExp(`\\${item.key}(\\(.+\\))?(\\[[0-9]*\\])?`, 'gm');
+    const regExp = new RegExp(
+      `\\${item.key}(\\(.+[^\)]\\))?(\\[[0-9]*\\])?`,
+      'gm'
+    );
     const matchedKey = origin.match(regExp);
 
     if (matchedKey) {
@@ -145,13 +147,14 @@ export function dummyMatcher(origin: string) {
           for (let i = 0; i < arrLen; i++) {
             if (item.list) {
               const result = item.list[Math.floor(Math.random() * targetLen)];
-              temp.push(isNaN(Number(result)) ? `'${result}'` : result);
+              temp.push(result);
             }
           }
           return `${arrLen === 1 ? temp[0] : '[' + temp + ']'}`;
         });
       }
       if (item?.generator) {
+        let matchedKeys = matchedKey;
         origin = origin.replaceAll(regExp, () => {
           const arrLen = getArrLen(matchedKey[0], 100);
           const option = getOption(matchedKey[0]);
@@ -159,10 +162,10 @@ export function dummyMatcher(origin: string) {
           for (let i = 0; i < arrLen; i++) {
             if (item.generator) {
               const result = item.generator(option);
-              temp.push(isNaN(Number(result)) ? `'${result}'` : result);
+              temp.push(result);
             }
           }
-
+          matchedKeys.shift();
           return `${arrLen === 1 ? temp[0] : '[' + temp + ']'}`;
         });
       }

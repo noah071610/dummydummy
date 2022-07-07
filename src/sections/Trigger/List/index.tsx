@@ -1,4 +1,6 @@
-import { useCallback, useState } from 'react';
+import { curPageState } from '@states';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import { dummyMatcher } from 'src/utils/dummyMatcher';
 import OptionTriggerList from './OptionTriggerList';
 import {
@@ -23,16 +25,24 @@ interface IProps {
 }
 
 function TriggerList({ name, desc, options }: IProps) {
+  const curPage = useRecoilValue(curPageState);
   const [mainTriggerExample, setMainTriggerExample] = useState(
     dummyMatcher(`$${name}`)
   );
+  const testRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (testRef?.current && curPage === `#trigger-${name}`) {
+      (testRef as any).current!.scrollIntoView();
+    }
+  }, [curPage]);
 
   const onClickMainTriggerCodeBlock = useCallback(() => {
     setMainTriggerExample(dummyMatcher(`$${name}`));
   }, [name]);
 
   return (
-    <TriggerListWrapper id={`#trigger-${name}`}>
+    <TriggerListWrapper ref={testRef} id={`#trigger-${name}`}>
       <TriggerBox>
         <Left>
           <TitleWrapper>
