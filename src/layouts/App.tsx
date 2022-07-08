@@ -1,4 +1,5 @@
 import DashboardSection from '@sections/Dashboard';
+import ProfileSection from '@sections/ProfileSection';
 import TemplateSection from '@sections/Template';
 import TriggerSection from '@sections/Trigger';
 import { curPageState, dashboardState } from '@states';
@@ -27,21 +28,24 @@ const ContentWrapper = styled.div`
 `;
 
 const ContentInner = styled.div<{ curPage: any }>`
-  ${tw`h-full transition-all`}
+  ${tw`h-full transition-all relative`}
   transition: 0.32s all cubic-bezier(0,.72,0,1.01);
   transform: translateY(
     ${(p) =>
-      p.curPage.includes('#template')
-        ? '-700px'
+      p.curPage.includes('#profile')
+        ? '0'
+        : p.curPage.includes('#template')
+        ? '-900px'
         : p.curPage.includes('#trigger')
-        ? '-1400px'
-        : 0}
+        ? '-1600px'
+        : '-200px'}
   );
 `;
 
 function App() {
   const { onResultModal } = useRecoilValue(dashboardState);
   const curPage = useRecoilValue(curPageState);
+  console.log(curPage);
 
   return (
     <Body>
@@ -49,6 +53,7 @@ function App() {
         <Aside />
         <ContentWrapper>
           <ContentInner curPage={curPage}>
+            <ProfileSection />
             <DashboardSection />
             <TemplateSection />
             <TriggerSection />

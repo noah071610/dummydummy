@@ -1,3 +1,5 @@
+import { EmotionJSX } from '@emotion/react/types/jsx-namespace';
+import { faJs } from '@fortawesome/free-brands-svg-icons';
 import {
   faAddressCard,
   faCartShopping,
@@ -9,13 +11,12 @@ import {
   faUserPen,
   IconDefinition,
 } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import DataObjectIcon from '@mui/icons-material/DataObject';
 import { triggerList } from '@resource/triggers';
 import { curPageState } from '@states';
-import { iconStyle } from '@styles/customStyle';
 import { useCallback, useMemo } from 'react';
 import { useRecoilState } from 'recoil';
-import { MenuIcon, MenuList, NavWrapper } from './styles';
+import { MenuList, NavWrapper } from './styles';
 import SubMenu from './SubMenu';
 
 interface IProps {}
@@ -24,6 +25,7 @@ interface SubMenuType {
   label?: string;
   value: string;
   icon?: IconDefinition;
+  materialIcon?: EmotionJSX.Element;
 }
 
 export interface MenuType {
@@ -38,6 +40,18 @@ const menuList: MenuType[] = [
     label: '대시보드',
     value: 'dash',
     icon: faFile,
+    subMenu: [
+      {
+        label: 'JSON',
+        value: 'json',
+        materialIcon: <DataObjectIcon className="material-icon" />,
+      },
+      {
+        label: 'Javascript',
+        value: 'javascript',
+        icon: faJs,
+      },
+    ],
   },
   {
     label: '템플릿',
@@ -72,12 +86,17 @@ const menuList: MenuType[] = [
     icon: faPaste,
   },
   {
-    label: '트리거 설정',
+    label: '트리거 목록',
     value: 'trigger',
-    subMenu: triggerList,
+    subMenu: [
+      { value: 'keyword[NUM]' },
+      { value: 'keyword(str)' },
+      ...triggerList,
+    ],
     icon: faGear,
   },
 ];
+//
 
 function Nav({}: IProps) {
   const [curPageData, setCurPageState] = useRecoilState(curPageState);
@@ -90,7 +109,7 @@ function Nav({}: IProps) {
         : 'dash',
     [curPageData]
   );
-
+  // countryCode device browser os countryName
   const onClickDashboardMenu = useCallback(() => {
     setCurPageState('/');
     window.location.hash = `dashboard`;
@@ -99,22 +118,7 @@ function Nav({}: IProps) {
     <NavWrapper>
       <MenuList>
         {menuList.map((v, i) => {
-          if (v.value === 'dash') {
-            return (
-              <li
-                className={`main_menu ${
-                  curPage === v.value ? 'is-active' : ''
-                }`}
-                key={`menu-${i}`}
-              >
-                <button onClick={onClickDashboardMenu}>
-                  <span>{v.label}</span>
-                  <MenuIcon>
-                    <FontAwesomeIcon icon={v.icon} style={iconStyle('16px')} />
-                  </MenuIcon>
-                </button>
-              </li>
-            );
+          if (false) {
           } else {
             return (
               <SubMenu

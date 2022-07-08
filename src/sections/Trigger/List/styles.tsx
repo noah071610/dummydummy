@@ -6,7 +6,7 @@ export const TriggerListWrapper = styled.div``;
 
 export const TriggerBox = styled.div`
   ${tw`pl-25px relative bg-white rounded-15px
-  shadow-[0 0 11px 3px rgba(0,0,0,0.03)] mb-20px z-10`}
+  shadow-[0 8px 11px 3px #883e1111] mb-20px z-10`}
   ${GRID('1fr 200px')}
 p {
     ${tw`pl-5px text-[#281508] font-semibold mb-15px`}

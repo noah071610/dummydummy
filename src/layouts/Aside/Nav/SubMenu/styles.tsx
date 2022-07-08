@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { FLEX } from '@styles/customStyle';
 import tw from 'twin.macro';
 
 export const SubMenuWrapper = styled.div``;
@@ -20,6 +21,7 @@ export const SubMenuList = styled.ul`
     ${tw`mx-10px`}
     button {
       ${tw`relative pb-2px mb-3px w-full text-left py-13px pl-50px rounded-15px`}
+      ${FLEX('left', 'center')}
       &:before {
         ${tw`absolute rounded-full bg-primary-deep 
         w-7px h-7px top-1/2 left-30px z-10`}
@@ -31,6 +33,9 @@ export const SubMenuList = styled.ul`
       }
       svg {
         ${tw`transition-all mr-7px`}
+      }
+      .material-icon {
+        ${tw`w-18px h-18px text-18px `}
       }
       .trigger-svg {
         ${tw`mr-3px`}

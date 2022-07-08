@@ -1,4 +1,4 @@
-import { exampleCode } from '@resource/templates';
+import { exampleJavascriptCode, exampleJsonCode } from '@resource/templates';
 import { atom } from 'recoil';
 
 export const curPageState = atom({
@@ -7,12 +7,14 @@ export const curPageState = atom({
 });
 
 export const dashboardState = atom<{
-  code: string;
+  jsonCode: string;
+  javascriptCode: string;
   onResultModal: boolean;
 }>({
   key: 'dashboardState',
   default: {
-    code: exampleCode,
+    jsonCode: exampleJsonCode,
+    javascriptCode: exampleJavascriptCode,
     onResultModal: false,
   },
 });
@@ -39,7 +41,7 @@ export const templateState = atom<{
   brand: $company,
   date: $date,
   review: $number,
-  size: [$number,$number,$number],
+  size: $number[3],
   color: $color
 };`,
       introduce: `const product = {

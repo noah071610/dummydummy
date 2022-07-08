@@ -29,6 +29,12 @@ export const TemplateResult = styled.div`
 export const TemplateIconButton = styled.button`
   ${tw`absolute bottom-20px right-16px w-50px h-50px bg-white rounded-full
     shadow-card`}
+  &:hover {
+    ${tw`bg-primary-deep`}
+    svg {
+      ${tw`text-white`}
+    }
+  }
   &.shuffle:hover {
     svg {
       animation: dicing 0.6s cubic-bezier(0.17, 0.67, 0.45, 1.25);

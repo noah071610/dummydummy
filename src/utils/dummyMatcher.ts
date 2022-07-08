@@ -142,6 +142,7 @@ export function dummyMatcher(origin: string) {
       if (item?.list) {
         const targetLen = item.list.length;
         const arrLen = getArrLen(matchedKey[0], targetLen);
+        const isString = matchedKey[0].includes(`(str)`);
         origin = origin.replaceAll(regExp, () => {
           let temp = [];
           for (let i = 0; i < arrLen; i++) {
@@ -150,7 +151,15 @@ export function dummyMatcher(origin: string) {
               temp.push(result);
             }
           }
-          return `${arrLen === 1 ? temp[0] : '[' + temp + ']'}`;
+          return `${
+            arrLen === 1
+              ? isString
+                ? `"${temp[0]}"`
+                : temp[0]
+              : '[' +
+                temp.map((v) => (isNaN(Number(v)) || isString ? `"${v}"` : v)) +
+                ']'
+          }`;
         });
       }
       if (item?.generator) {
@@ -158,6 +167,7 @@ export function dummyMatcher(origin: string) {
         origin = origin.replaceAll(regExp, () => {
           const arrLen = getArrLen(matchedKey[0], 100);
           const option = getOption(matchedKey[0]);
+          const isString = matchedKey[0].includes(`(str)`);
           let temp = [];
           for (let i = 0; i < arrLen; i++) {
             if (item.generator) {
@@ -166,7 +176,15 @@ export function dummyMatcher(origin: string) {
             }
           }
           matchedKeys.shift();
-          return `${arrLen === 1 ? temp[0] : '[' + temp + ']'}`;
+          return `${
+            arrLen === 1
+              ? isString
+                ? `"${temp[0]}"`
+                : temp[0]
+              : '[' +
+                temp.map((v) => (isNaN(Number(v)) || isString ? `"${v}"` : v)) +
+                ']'
+          }`;
         });
       }
     }

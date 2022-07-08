@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import useToggle from '@hooks/useToggle';
 import { curPageState } from '@states';
 import { iconStyle } from '@styles/customStyle';
-import { useCallback } from 'react';
+import { memo, useCallback } from 'react';
 import { useRecoilState } from 'recoil';
 import { MenuType } from '..';
 import { MenuIcon } from '../styles';
@@ -12,7 +12,7 @@ import { SubMenuList, SubMenuWrapper } from './styles';
 interface IProps {
   menu: MenuType;
   className: string;
-  type: 'trigger' | 'template';
+  type: 'trigger' | 'template' | 'dash';
 }
 
 function SubMenu({ className, menu, type }: IProps) {
@@ -48,11 +48,15 @@ function SubMenu({ className, menu, type }: IProps) {
               className={curPage.includes(k.value) ? 'is-active' : ''}
               onClick={() => onClickSubMenu(k.value)}
             >
-              <FontAwesomeIcon
-                className={!k.label ? 'trigger-svg' : ''}
-                icon={k?.icon ? k.icon : faDollarSign}
-                style={iconStyle('16px')}
-              />
+              {k.materialIcon ? (
+                k.materialIcon
+              ) : (
+                <FontAwesomeIcon
+                  className={!k.label ? 'trigger-svg' : ''}
+                  icon={k?.icon ? k.icon : faDollarSign}
+                  style={iconStyle('16px')}
+                />
+              )}
               <span>{k.label ?? k.value}</span>
             </button>
           </li>
@@ -62,4 +66,4 @@ function SubMenu({ className, menu, type }: IProps) {
   );
 }
 
-export default SubMenu;
+export default memo(SubMenu);

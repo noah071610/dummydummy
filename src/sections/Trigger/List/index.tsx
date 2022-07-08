@@ -1,5 +1,6 @@
+import { triggerList } from '@resource/triggers';
 import { curPageState } from '@states';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { memo, useCallback, useEffect, useRef, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { dummyMatcher } from 'src/utils/dummyMatcher';
 import OptionTriggerList from './OptionTriggerList';
@@ -22,13 +23,26 @@ interface IProps {
   name: string;
   desc: string;
   options?: TriggerOptions[];
+  randomExampleType?: 'arr' | 'str';
 }
 
-function TriggerList({ name, desc, options }: IProps) {
+function getTriggerKeyWithArr(type: 'arr' | 'str') {
+  const randomKey =
+    '$' + triggerList[Math.floor(Math.random() * triggerList.length)].value;
+  return type === 'arr'
+    ? randomKey + `[${Math.floor(Math.random() * (4 - 2) + 2)}]`
+    : randomKey + `(str)`;
+}
+
+function TriggerList({ name, desc, options, randomExampleType }: IProps) {
   const curPage = useRecoilValue(curPageState);
   const [mainTriggerExample, setMainTriggerExample] = useState(
     dummyMatcher(`$${name}`)
   );
+  const [randomExample, setRandomExample] = useState<null | string>(null);
+  const [randomExampleKeyword, setRandomExampleKeyword] = useState<
+    null | string
+  >(null);
   const testRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -37,9 +51,23 @@ function TriggerList({ name, desc, options }: IProps) {
     }
   }, [curPage]);
 
+  useEffect(() => {
+    if (randomExampleType) {
+      const triggerKey = getTriggerKeyWithArr(randomExampleType);
+      setRandomExampleKeyword(triggerKey);
+      setRandomExample(dummyMatcher(triggerKey));
+    }
+  }, [randomExampleType]);
+
   const onClickMainTriggerCodeBlock = useCallback(() => {
-    setMainTriggerExample(dummyMatcher(`$${name}`));
-  }, [name]);
+    if (randomExampleType) {
+      const triggerKey = getTriggerKeyWithArr(randomExampleType);
+      setRandomExampleKeyword(triggerKey);
+      setRandomExample(dummyMatcher(triggerKey));
+    } else {
+      setMainTriggerExample(dummyMatcher(`$${name}`));
+    }
+  }, [randomExampleType, name]);
 
   return (
     <TriggerListWrapper ref={testRef} id={`#trigger-${name}`}>
@@ -52,9 +80,13 @@ function TriggerList({ name, desc, options }: IProps) {
         </Left>
         <Right>
           <CodeBlock onClick={onClickMainTriggerCodeBlock}>
-            <span className="trigger-text">${name}</span>
+            <span className="trigger-text">
+              {randomExampleKeyword ?? `$${name}`}
+            </span>
             <span className="arrow">👇</span>
-            <span className="result-text">{mainTriggerExample}</span>
+            <span className="result-text">
+              {randomExample ?? mainTriggerExample}
+            </span>
           </CodeBlock>
         </Right>
       </TriggerBox>
@@ -73,4 +105,4 @@ function TriggerList({ name, desc, options }: IProps) {
   );
 }
 
-export default TriggerList;
+export default memo(TriggerList);
