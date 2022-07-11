@@ -1,11 +1,13 @@
+import { Alert, Snackbar } from '@mui/material';
 import DashboardSection from '@sections/Dashboard';
 import ProfileSection from '@sections/ProfileSection';
 import TemplateSection from '@sections/Template';
 import TriggerSection from '@sections/Trigger';
-import { curPageState, dashboardState } from '@states';
+import { curPageState, dashboardState, snackbarState } from '@states';
 import { FLEX, GRID, MQ } from '@styles/customStyle';
 import 'animate.css';
-import { useRecoilValue } from 'recoil';
+import { useCallback } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import tw, { styled } from 'twin.macro';
 import Aside from './Aside';
 import ResultModal from './ResultModal';
@@ -13,6 +15,14 @@ import ResultModal from './ResultModal';
 const Body = styled.div`
   ${tw`h-screen`}
   ${FLEX()}
+  .snackbar {
+    div {
+      align-items: center;
+    }
+    .MuiAlert-message {
+      ${tw`font-bold`}
+    }
+  }
 `;
 
 const Main = styled.main`
@@ -44,8 +54,12 @@ const ContentInner = styled.div<{ curPage: any }>`
 
 function App() {
   const { onResultModal } = useRecoilValue(dashboardState);
+  const [{ isOpen, message }, setSnackbarState] = useRecoilState(snackbarState);
   const curPage = useRecoilValue(curPageState);
-  console.log(curPage);
+
+  const handleClose = useCallback(() => {
+    setSnackbarState((prev) => ({ ...prev, isOpen: false }));
+  }, []);
 
   return (
     <Body>
@@ -61,6 +75,17 @@ function App() {
         </ContentWrapper>
       </Main>
       {onResultModal && <ResultModal />}
+      <Snackbar
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        autoHideDuration={3000}
+        className="snackbar"
+        open={isOpen}
+        onClose={handleClose}
+      >
+        <Alert severity="success" sx={{ width: '100%' }}>
+          {message}
+        </Alert>
+      </Snackbar>
     </Body>
   );
 }

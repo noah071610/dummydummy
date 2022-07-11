@@ -4,9 +4,7 @@ import { useRecoilState } from 'recoil';
 import CodeBlock from './CodeBlock';
 import { DashboardSectionWrapper } from './styles';
 
-interface IProps {}
-
-function DashboardSection({}: IProps) {
+function DashboardSection() {
   const [curPage, setCurPageState] = useRecoilState(curPageState);
   const onClickDashboard = useCallback(() => {
     if (curPage.includes('profile')) {

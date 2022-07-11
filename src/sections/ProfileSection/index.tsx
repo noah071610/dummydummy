@@ -5,9 +5,7 @@ import {
   ProfileSectionWrapper,
 } from './styles';
 
-interface IProps {}
-
-function ProfileSection({}: IProps) {
+function ProfileSection() {
   return (
     <ProfileSectionWrapper>
       <ImageWrapper>

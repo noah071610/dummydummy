@@ -1,5 +1,6 @@
 import { triggerList } from '@resource/triggers';
 import { curPageState } from '@states';
+import { TriggerOptionList } from '@typings';
 import { memo, useCallback, useEffect, useRef, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { dummyMatcher } from 'src/utils/dummyMatcher';
@@ -14,19 +15,15 @@ import {
   TriggerListWrapper,
 } from './styles';
 
-interface TriggerOptions {
-  value: string;
-  desc: string;
-}
-
+type RandomExampleType = 'arr' | 'str';
 interface IProps {
   name: string;
   desc: string;
-  options?: TriggerOptions[];
-  randomExampleType?: 'arr' | 'str';
+  options?: TriggerOptionList[];
+  randomExampleType?: RandomExampleType;
 }
 
-function getTriggerKeyWithArr(type: 'arr' | 'str') {
+function getTriggerKeyWithArr(type: RandomExampleType) {
   const randomKey =
     '$' + triggerList[Math.floor(Math.random() * triggerList.length)].value;
   return type === 'arr'

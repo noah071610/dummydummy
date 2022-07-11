@@ -8,7 +8,12 @@ import {
   TooltipProps,
 } from '@mui/material';
 import { templateNames } from '@resource/templates';
-import { curPageState, dashboardState, templateState } from '@states';
+import {
+  curPageState,
+  dashboardState,
+  snackbarState,
+  templateState,
+} from '@states';
 import { iconStyle } from '@styles/customStyle';
 import { dracula } from '@uiw/codemirror-theme-dracula';
 import CodeMirror from '@uiw/react-codemirror';
@@ -21,11 +26,11 @@ import {
   TemplateResult,
   TemplateSectionWrapper,
 } from './styles';
-interface IProps {}
 
-function TemplateSection({}: IProps) {
+function TemplateSection() {
   const [curPage, setCurPageState] = useRecoilState(curPageState);
   const setDashboardState = useSetRecoilState(dashboardState);
+  const setSnackbarState = useSetRecoilState(snackbarState);
   const curTemplateName = useMemo(
     () => (curPage.includes('template-') ? curPage.split('-')[1] : 'user'),
     [curPage]
@@ -73,6 +78,10 @@ function TemplateSection({}: IProps) {
       ...prev,
       code: templates[curTemplateName],
     }));
+    setSnackbarState({
+      isOpen: true,
+      message: '대시보드로 템플릿을 복사했습니다.',
+    });
   }, [curTemplateName, templates]);
 
   return (
@@ -80,7 +89,7 @@ function TemplateSection({}: IProps) {
       <TemplateCode>
         <h2>
           <div className="dot" />
-          <span>{templateNames[curTemplateName]} 양식 📚</span>
+          <span>{templateNames[curTemplateName]} 템플릿 📚</span>
         </h2>
         <CodeMirror
           value={

@@ -1,6 +1,7 @@
 import { javascript } from '@codemirror/lang-javascript';
 import { json } from '@codemirror/lang-json';
 import { dashboardState } from '@states';
+import { CodeBlockType } from '@typings';
 import { dracula } from '@uiw/codemirror-theme-dracula';
 import CodeMirror from '@uiw/react-codemirror';
 import { memo, useCallback } from 'react';
@@ -9,7 +10,7 @@ import DashboardMenu from './DashboardMenu';
 import { CodeBlockWrapper } from './styles';
 
 interface IProps {
-  type: 'json' | 'javascript';
+  type: CodeBlockType;
 }
 
 function CodeBlock({ type }: IProps) {

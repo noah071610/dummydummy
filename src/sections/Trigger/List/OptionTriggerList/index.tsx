@@ -1,15 +1,11 @@
+import { TriggerOptionList } from '@typings';
 import { memo, useCallback, useState } from 'react';
 import { dummyMatcher } from 'src/utils/dummyMatcher';
 import { CodeBlock, Left, Right, TitleWrapper, TriggerBox } from '../styles';
 
-interface TriggerOptions {
-  value: string;
-  desc: string;
-}
-
 interface IProps {
   name: string;
-  option: TriggerOptions;
+  option: TriggerOptionList;
 }
 
 function OptionTriggerList({ name, option }: IProps) {

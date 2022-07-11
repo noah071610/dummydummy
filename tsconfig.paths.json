@@ -5,7 +5,7 @@
       "@hooks/*": ["src/hooks/*"],
       "@components/*": ["src/components/*"],
       "@sections/*": ["src/sections/*"],
-      "@typings": ["typings/*"],
+      "@typings": ["src/typings/index"],
       "@styles/*": ["src/styles/*"],
       "@layouts/*": ["src/layouts/*"],
       "@config/*": ["src/config/*"],

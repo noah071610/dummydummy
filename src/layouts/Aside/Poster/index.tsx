@@ -15,8 +15,6 @@ import {
   SocialIcon,
 } from './styles';
 
-interface IProps {}
-
 const socials = [
   {
     icon: faGithub,
@@ -32,7 +30,7 @@ const socials = [
   },
 ];
 
-function Poster({}: IProps) {
+function Poster() {
   const [curPage, setCurPageState] = useRecoilState(curPageState);
   const onClickPoster = useCallback(() => {
     setCurPageState('#profile');

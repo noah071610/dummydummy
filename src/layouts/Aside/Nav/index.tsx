@@ -1,4 +1,3 @@
-import { EmotionJSX } from '@emotion/react/types/jsx-namespace';
 import { faJs } from '@fortawesome/free-brands-svg-icons';
 import {
   faAddressCard,
@@ -9,33 +8,17 @@ import {
   faPaste,
   faUser,
   faUserPen,
-  IconDefinition,
 } from '@fortawesome/free-solid-svg-icons';
 import DataObjectIcon from '@mui/icons-material/DataObject';
 import { triggerList } from '@resource/triggers';
 import { curPageState } from '@states';
-import { useCallback, useMemo } from 'react';
+import { NavMenu } from '@typings';
+import { useMemo } from 'react';
 import { useRecoilState } from 'recoil';
 import { MenuList, NavWrapper } from './styles';
 import SubMenu from './SubMenu';
 
-interface IProps {}
-
-interface SubMenuType {
-  label?: string;
-  value: string;
-  icon?: IconDefinition;
-  materialIcon?: EmotionJSX.Element;
-}
-
-export interface MenuType {
-  label: string;
-  value: 'dash' | 'trigger' | 'template';
-  icon: IconDefinition;
-  subMenu?: SubMenuType[];
-}
-
-const menuList: MenuType[] = [
+const menuList: NavMenu[] = [
   {
     label: '대시보드',
     value: 'dash',
@@ -98,7 +81,7 @@ const menuList: MenuType[] = [
 ];
 //
 
-function Nav({}: IProps) {
+function Nav() {
   const [curPageData, setCurPageState] = useRecoilState(curPageState);
   const curPage = useMemo(
     () =>
@@ -109,11 +92,6 @@ function Nav({}: IProps) {
         : 'dash',
     [curPageData]
   );
-  // countryCode device browser os countryName
-  const onClickDashboardMenu = useCallback(() => {
-    setCurPageState('/');
-    window.location.hash = `dashboard`;
-  }, []);
   return (
     <NavWrapper>
       <MenuList>

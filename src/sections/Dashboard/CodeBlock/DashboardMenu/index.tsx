@@ -10,7 +10,6 @@ import { iconStyle } from '@styles/customStyle';
 import { useCallback } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { DashboardMenuContainer, MenuIconButton } from './styles';
-interface IProps {}
 
 const menuList = [
   { label: '초기화', value: 'reset', icon: faArrowRotateLeft },
@@ -18,7 +17,7 @@ const menuList = [
   { label: '결과보기', value: 'result', icon: faPenToSquare },
 ];
 
-function DashboardMenu({}: IProps) {
+function DashboardMenu() {
   const curPage = useRecoilValue(curPageState);
   const [{}, setDashboardState] = useRecoilState(dashboardState);
   const onClickMenuBtn = useCallback(

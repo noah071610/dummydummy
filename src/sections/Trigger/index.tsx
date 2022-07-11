@@ -2,9 +2,7 @@ import { triggerList } from '@resource/triggers';
 import TriggerList from './List';
 import { TriggerSectionWrapper } from './styles';
 
-interface IProps {}
-
-function TriggerSection({}: IProps) {
+function TriggerSection() {
   return (
     <TriggerSectionWrapper>
       <h1>공통 트리거 🔆</h1>

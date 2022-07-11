@@ -1,4 +1,6 @@
-export const triggerList = [
+import { TriggerList } from '@typings';
+
+export const triggerList: TriggerList[] = [
   {
     value: 'firstName',
     desc: '성을',

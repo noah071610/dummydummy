@@ -6,6 +6,17 @@ export const curPageState = atom({
   default: window.location.hash,
 });
 
+export const snackbarState = atom<{
+  isOpen: boolean;
+  message: string;
+}>({
+  key: 'snackbarState',
+  default: {
+    isOpen: false,
+    message: '',
+  },
+});
+
 export const dashboardState = atom<{
   jsonCode: string;
   javascriptCode: string;

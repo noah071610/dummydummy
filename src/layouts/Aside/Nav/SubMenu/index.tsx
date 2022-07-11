@@ -3,16 +3,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import useToggle from '@hooks/useToggle';
 import { curPageState } from '@states';
 import { iconStyle } from '@styles/customStyle';
+import { NavMenu, NavMenuValue } from '@typings';
 import { memo, useCallback } from 'react';
 import { useRecoilState } from 'recoil';
-import { MenuType } from '..';
 import { MenuIcon } from '../styles';
 import { SubMenuList, SubMenuWrapper } from './styles';
 
 interface IProps {
-  menu: MenuType;
+  menu: NavMenu;
   className: string;
-  type: 'trigger' | 'template' | 'dash';
+  type: NavMenuValue;
 }
 
 function SubMenu({ className, menu, type }: IProps) {

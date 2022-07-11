@@ -8,29 +8,29 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Overlay from '@layouts/Overlay';
-import { curPageState, dashboardState } from '@states';
+import { curPageState, dashboardState, snackbarState } from '@states';
 import { iconStyle } from '@styles/customStyle';
+import { ResultModalMenu } from '@typings';
 import { dracula } from '@uiw/codemirror-theme-dracula';
 import CodeMirror from '@uiw/react-codemirror';
 import { useCallback, useRef, useState } from 'react';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { dummyMatcher } from 'src/utils/dummyMatcher';
 import {
   MenuIconButton,
   ResultMenuContainer,
   ResultModalWrapper,
 } from './styles';
-interface IProps {}
 
-const menuList = [
+const menuList: ResultModalMenu[] = [
   { label: '복사하기', value: 'copy', icon: faClipboard },
   { label: '다시섞기', value: 'shuffle', icon: faDiceFive },
   { label: '닫기', value: 'close', icon: faClose },
 ];
 
-function ResultModal({}: IProps) {
+function ResultModal() {
   const curPage = useRecoilValue(curPageState);
+  const setSnackbarState = useSetRecoilState(snackbarState);
   const [{ javascriptCode, jsonCode }, setDashboardState] =
     useRecoilState(dashboardState);
   const [isDeletingOverlay, setIsDeletingOverlay] = useState(false);
@@ -39,11 +39,14 @@ function ResultModal({}: IProps) {
   );
   const shuffleBtnRef = useRef<HTMLButtonElement>(null);
 
-  // useEffect(() => {
-  //   setResultCode(
-  //     dummyMatcher(curPage.includes('javascript') ? javascriptCode : jsonCode)
-  //   );
-  // }, [curPage]);
+  const copyToClickBoard = useCallback(() => {
+    navigator.clipboard.writeText(resultCode).then(() => {
+      setSnackbarState({
+        isOpen: true,
+        message: '내용이 복사 되었습니다.',
+      });
+    });
+  }, [resultCode]);
 
   const closeModal = useCallback(() => {
     setIsDeletingOverlay(true);
@@ -60,6 +63,7 @@ function ResultModal({}: IProps) {
     (value: string) => {
       switch (value) {
         case 'copy':
+          copyToClickBoard();
           break;
         case 'shuffle':
           setResultCode(
@@ -83,6 +87,26 @@ function ResultModal({}: IProps) {
       }
     },
     [curPage, javascriptCode, jsonCode, shuffleBtnRef]
+  );
+
+  const menuIconComponent = useCallback(
+    (menu: ResultModalMenu, i: number) => (
+      <BootstrapTooltip
+        key={`menu-icon-${i}`}
+        title={menu.label}
+        placement="top"
+        arrow
+      >
+        <MenuIconButton
+          className={menu.value}
+          onClick={() => onClickMenuBtn(menu.value)}
+          ref={menu.value === 'shuffle' ? shuffleBtnRef : undefined}
+        >
+          <FontAwesomeIcon style={iconStyle('18px')} icon={menu.icon} />
+        </MenuIconButton>
+      </BootstrapTooltip>
+    ),
+    []
   );
 
   return (
@@ -111,36 +135,9 @@ function ResultModal({}: IProps) {
           ]}
         />
         <ResultMenuContainer>
-          {menuList.map((menu, i) => (
-            <BootstrapTooltip
-              key={`menu-icon-${i}`}
-              title={menu.label}
-              placement="top"
-              arrow
-            >
-              {menu.value === 'copy' ? (
-                <CopyToClipboard text={resultCode}>
-                  <MenuIconButton
-                    className={menu.value}
-                    onClick={() => onClickMenuBtn(menu.value)}
-                  >
-                    <FontAwesomeIcon
-                      style={iconStyle('18px')}
-                      icon={menu.icon}
-                    />
-                  </MenuIconButton>
-                </CopyToClipboard>
-              ) : (
-                <MenuIconButton
-                  className={menu.value}
-                  ref={menu.value === 'shuffle' ? shuffleBtnRef : undefined}
-                  onClick={() => onClickMenuBtn(menu.value)}
-                >
-                  <FontAwesomeIcon style={iconStyle('18px')} icon={menu.icon} />
-                </MenuIconButton>
-              )}
-            </BootstrapTooltip>
-          ))}
+          {menuList.map((menu, i) => {
+            return menuIconComponent(menu, i);
+          })}
         </ResultMenuContainer>
       </ResultModalWrapper>
     </>
