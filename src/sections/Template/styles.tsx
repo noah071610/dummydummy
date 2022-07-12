@@ -38,10 +38,10 @@ export const TemplateSectionInner = styled.div`
     height: calc(100vh - 70px);
     .cm-theme {
       ${tw`w-full`}
-      height: calc(50vh - 80px);
+      height: calc(50vh - 90px);
     }
     .cm-editor {
-      height: calc(50vh - 80px);
+      height: calc(50vh - 90px);
     }
   }
 `;
@@ -63,7 +63,7 @@ export const CodeMenuIconContainer = styled.div`
   ${tw`absolute bottom-20px right-16px gap-10px`}
   ${FLEX('left', 'center')}
   ${MQ('700px')} {
-    ${tw`absolute bottom-10px right-10px gap-5px`}
+    ${tw`absolute bottom-30px right-10px gap-5px`}
   }
 `;
 
