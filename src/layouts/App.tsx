@@ -45,10 +45,10 @@ const ContentInner = styled.div<{ curPage: any }>`
       p.curPage.includes('#profile')
         ? '0'
         : p.curPage.includes('#template')
-        ? '-900px'
+        ? '-940px'
         : p.curPage.includes('#trigger')
-        ? '-1600px'
-        : '-200px'}
+        ? '-1640px'
+        : '-240px'}
   );
 `;
 

@@ -6,6 +6,33 @@ export const PosterWrapper = styled.div`
   ${tw`w-full relative`}
 `;
 
+export const LogoWrapper = styled.div`
+  ${tw`cursor-pointer bg-white rounded-full
+    border-solid border border-border`}
+  ${FLEX()}
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+`;
+export const Logo = styled.div`
+  ${tw`w-35px h-35px ml-5px transition-all`}
+  background: url('/images/dummy-icon.png') no-repeat center center / 100% 100%;
+`;
+
+export const Background = styled.div`
+  ${tw`w-full h-[150px]`}
+  background: url('/images/pattern.jpeg') no-repeat center center / 100%;
+`;
+
+export const ProfileContainer = styled.div`
+  ${tw`absolute -bottom-35px left-20px h-70px`}
+  ${GRID('70px 1fr')}
+  width: calc(100% - 30px);
+  ${LogoWrapper}:hover {
+    ${Logo} {
+      transform: scale(1.2);
+    }
+  }
+`;
+
 export const BackgroundWrapper = styled.div`
   ${tw`w-full overflow-hidden cursor-pointer`}
   div {
@@ -18,19 +45,6 @@ export const BackgroundWrapper = styled.div`
   }
 `;
 
-export const Background = styled.div`
-  ${tw`w-full h-[150px]`}
-  background: url('/images/pattern.jpeg') no-repeat center center / 100%;
-`;
-
-export const ProfileContainer = styled.div`
-  ${tw`absolute -bottom-35px left-20px h-70px gap-5px`}
-  ${GRID('70px 1fr')}
-  width: calc(100% - 30px);
-`;
-export const Icon = styled.div`
-  ${tw`rounded-15px border-1px border-solid border-border`}
-`;
 export const SocialContainer = styled.div`
   ${tw`m-15px`}
   ${GRID('repeat(3,40px)', '5px')}

@@ -15,7 +15,7 @@ export const TemplateSectionWrapper = styled.section`
     ${tw`text-19px mb-15px`}
   }
   .cm-theme {
-    ${tw`w-full relative`}
+    ${tw`w-[770px] relative`}
   }
 `;
 
@@ -26,14 +26,22 @@ export const TemplateResult = styled.div`
   ${tw`w-full h-[340px] relative`}
 `;
 
+export const CodeMenuIconContainer = styled.div`
+  ${tw`absolute bottom-20px right-16px gap-10px`}
+  ${FLEX('left', 'center')}
+`;
+
 export const TemplateIconButton = styled.button`
-  ${tw`absolute bottom-20px right-16px w-50px h-50px bg-white rounded-full
-    shadow-card`}
+  ${tw`w-50px h-50px bg-white rounded-full
+shadow-card`}
   &:hover {
     ${tw`bg-primary-deep`}
     svg {
       ${tw`text-white`}
     }
+  }
+  svg {
+    ${tw`transition-all`}
   }
   &.shuffle:hover {
     svg {
@@ -43,6 +51,11 @@ export const TemplateIconButton = styled.button`
   &.copy:hover {
     svg {
       animation: flip 0.6s forwards;
+    }
+  }
+  &.exchange:hover {
+    svg {
+      transform: rotateZ(360deg);
     }
   }
   ${FLEX()}

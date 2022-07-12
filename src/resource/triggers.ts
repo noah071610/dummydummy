@@ -134,6 +134,12 @@ export const triggerList: TriggerList[] = [
   {
     value: 'price',
     desc: '1000 단위로 끊은 숫자값을',
+    options: [
+      {
+        value: '{min,max}',
+        desc: '가격의 최솟값과 최댓값을 조정합니다.',
+      },
+    ],
   },
   {
     value: 'bank',
@@ -177,6 +183,10 @@ export const triggerList: TriggerList[] = [
     value: 'number',
     desc: '0~100000사이의 숫자값을',
     options: [
+      {
+        value: '{min,max}',
+        desc: '숫자의 최솟값과 최댓값을 조정합니다.',
+      },
       {
         value: 'comma',
         desc: '1000단위 마다 콤마를 붙입니다.',

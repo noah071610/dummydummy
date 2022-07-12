@@ -4,7 +4,7 @@ import dayjsRandom from 'dayjs-random';
 
 dayjs.extend(dayjsRandom);
 
-export const dateGenerator = (format?: 'hyphen' | 'slash' | 'yy' | 'ko') => {
+export const dateGenerator = (format?: 'hyphen' | 'slash' | 'yy' | 'YY') => {
   if (!format) {
     return (
       (dayjs as any)
@@ -21,7 +21,7 @@ export const dateGenerator = (format?: 'hyphen' | 'slash' | 'yy' | 'ko') => {
         ? 'YYYY-MM-DD'
         : format === 'slash'
         ? 'YYYY/MM/DD'
-        : format === 'yy'
+        : format === 'YY' || format === 'yy'
         ? 'YYMMDD'
         : 'YYYYMMDD'
     );

@@ -35,7 +35,7 @@ const commentRegExp = new RegExp('//.*\n', 'gm');
 const matcherList: {
   key: string;
   list?: any[];
-  generator?: (type?: any) => string;
+  generator?: (type?: any, range?: number[]) => string | number;
 }[] = [
   { key: '$firstName', generator: () => nameGenerator('first') },
   { key: '$lastName', generator: () => nameGenerator('last') },
@@ -61,11 +61,14 @@ const matcherList: {
     key: '$tall',
     generator: () => numberRangeGenerator('tall', [150, 185]),
   },
-  { key: '$age', generator: () => numberRangeGenerator('age', [15, 50]) },
+  {
+    key: '$age',
+    generator: () => numberRangeGenerator('age', [15, 50]),
+  },
   {
     key: '$number',
-    generator: (type?: any) =>
-      numberRangeGenerator('random', [0, 100000], type === 'comma'),
+    generator: (type, range) =>
+      numberRangeGenerator('random', range ?? [0, 100000], type === 'comma'),
   },
   { key: '$university', list: universities },
   { key: '$education', list: education },
@@ -73,7 +76,7 @@ const matcherList: {
   { key: '$email', generator: emailGenerator },
   {
     key: '$date',
-    generator: (type?: 'slash' | 'hyphen' | 'ko') => dateGenerator(type),
+    generator: (type?: 'slash' | 'hyphen' | 'yy' | 'YY') => dateGenerator(type),
   },
   { key: '$artist', list: artists },
   { key: '$food', list: foods },
@@ -91,8 +94,8 @@ const matcherList: {
   },
   {
     key: '$price',
-    generator: () =>
-      priceRangeGenerator([0, 500000], {
+    generator: (type, range) =>
+      priceRangeGenerator(range ?? [0, 500000], {
         gap: 1000,
         comma: true,
         suffix: '원',
@@ -128,12 +131,28 @@ function getOption(matchedKey: string) {
   }
 }
 
+function getNumberLimitLen(matchedKey: string) {
+  const hasLimitKey = matchedKey.match(/{[0-9]+(,[0-9]+)?}/g);
+  const isTargetKey = matchedKey.match(/\$price|\$number/g);
+  let minMax =
+    isTargetKey && hasLimitKey
+      ? hasLimitKey[0]
+          .replace(/{|}/g, '')
+          .split(',')
+          .map((v) => +v)
+      : undefined;
+  if (minMax?.length === 1) {
+    minMax = [0, minMax[0]];
+  }
+  return minMax;
+}
+
 export function dummyMatcher(origin: string) {
   origin = origin.replace(commentRegExp, '');
   for (let i = 0; i < matcherList.length; i++) {
     const item = matcherList[i];
     const regExp = new RegExp(
-      `\\${item.key}(\\(.+[^\)]\\))?(\\[[0-9]*\\])?`,
+      `\\${item.key}((\\(.+[^\)]\\))?|(\\[[0-9]*\\])?|({[0-9]+(,[0-9]+)?})?)+`,
       'gm'
     );
     const matchedKey = origin.match(regExp);
@@ -168,10 +187,12 @@ export function dummyMatcher(origin: string) {
           const arrLen = getArrLen(matchedKey[0], 100);
           const option = getOption(matchedKey[0]);
           const isString = matchedKey[0].includes(`(str)`);
+          const minMax = getNumberLimitLen(matchedKey[0]);
+
           let temp = [];
           for (let i = 0; i < arrLen; i++) {
             if (item.generator) {
-              const result = item.generator(option);
+              const result = item.generator(option, minMax);
               temp.push(result);
             }
           }

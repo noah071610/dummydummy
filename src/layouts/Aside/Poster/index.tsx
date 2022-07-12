@@ -8,7 +8,8 @@ import { useRecoilState } from 'recoil';
 import {
   Background,
   BackgroundWrapper,
-  Icon,
+  Logo,
+  LogoWrapper,
   PosterWrapper,
   ProfileContainer,
   SocialContainer,
@@ -36,6 +37,15 @@ function Poster() {
     setCurPageState('#profile');
     window.location.hash = `profile`;
   }, []);
+  const onClickLogo = useCallback(() => {
+    if (curPage.includes('#dash-')) {
+      setCurPageState('#profile');
+      window.location.hash = `profile`;
+    } else {
+      setCurPageState('#dash-json');
+      window.location.hash = `dash-json`;
+    }
+  }, [curPage]);
 
   return (
     <PosterWrapper>
@@ -43,7 +53,9 @@ function Poster() {
         <Background />
       </BackgroundWrapper>
       <ProfileContainer>
-        <Icon />
+        <LogoWrapper onClick={onClickLogo}>
+          <Logo />
+        </LogoWrapper>
         <SocialContainer>
           {socials.map((v, i) => (
             <SocialIcon key={`social-${i}`}>
