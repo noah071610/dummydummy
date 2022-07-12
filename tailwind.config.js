@@ -38,8 +38,8 @@ module.exports = {
       white: 'white',
       black: 'black',
       primary: {
-        DEFAULT: '#419EFB',
-        hover: '#3c90e5',
+        deep: '#ff6e6e',
+        soft: '#fe500011',
       },
       gray: '#FAFAFB',
       border: '#E5E8EB',

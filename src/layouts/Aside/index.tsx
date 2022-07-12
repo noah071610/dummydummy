@@ -2,9 +2,7 @@ import Nav from './Nav';
 import Poster from './Poster';
 import { AsideWrapper } from './styles';
 
-interface IProps {}
-
-function Aside({}: IProps) {
+function Aside({}) {
   return (
     <AsideWrapper>
       <Poster />

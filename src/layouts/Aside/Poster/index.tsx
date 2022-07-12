@@ -1,42 +1,69 @@
+import { faGithub, faInstagram } from '@fortawesome/free-brands-svg-icons';
+import { faHome } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { curPageState } from '@states';
+import { iconStyle } from '@styles/customStyle';
+import { useCallback } from 'react';
+import { useRecoilState } from 'recoil';
 import {
   Background,
-  Icon,
+  BackgroundWrapper,
+  Logo,
+  LogoWrapper,
   PosterWrapper,
   ProfileContainer,
   SocialContainer,
   SocialIcon,
 } from './styles';
 
-interface IProps {}
-
 const socials = [
   {
-    icon: '',
+    icon: faGithub,
     link: '',
   },
   {
-    icon: '',
+    icon: faInstagram,
     link: '',
   },
   {
-    icon: '',
+    icon: faHome,
     link: '',
   },
 ];
 
-function Poster({}: IProps) {
+function Poster() {
+  const [curPage, setCurPageState] = useRecoilState(curPageState);
+  const onClickPoster = useCallback(() => {
+    setCurPageState('#profile');
+    window.location.hash = `profile`;
+  }, []);
+  const onClickLogo = useCallback(() => {
+    if (curPage.includes('#dash-')) {
+      setCurPageState('#profile');
+      window.location.hash = `profile`;
+    } else {
+      setCurPageState('#dash-json');
+      window.location.hash = `dash-json`;
+    }
+  }, [curPage]);
+
   return (
     <PosterWrapper>
-      <Background>
-        <ProfileContainer>
-          <Icon />
-          <SocialContainer>
-            {socials.map((v) => (
-              <SocialIcon></SocialIcon>
-            ))}
-          </SocialContainer>
-        </ProfileContainer>
-      </Background>
+      <BackgroundWrapper onClick={onClickPoster}>
+        <Background />
+      </BackgroundWrapper>
+      <ProfileContainer>
+        <LogoWrapper onClick={onClickLogo}>
+          <Logo />
+        </LogoWrapper>
+        <SocialContainer>
+          {socials.map((v, i) => (
+            <SocialIcon key={`social-${i}`}>
+              <FontAwesomeIcon style={iconStyle('20px')} icon={v.icon} />
+            </SocialIcon>
+          ))}
+        </SocialContainer>
+      </ProfileContainer>
     </PosterWrapper>
   );
 }

@@ -13,17 +13,18 @@
       "@hooks/*": ["src/hooks/*"],
       "@components/*": ["src/components/*"],
       "@sections/*": ["src/sections/*"],
-      "@typings": ["typings/*"],
+      "@typings": ["src/typings/index"],
       "@styles/*": ["src/styles/*"],
       "@layouts/*": ["src/layouts/*"],
       "@config/*": ["src/config/*"],
-      "@state/*": ["src/state/*"],
-      "@generator/*": ["src/generator/*"]
+      "@states": ["src/states/index"],
+      "@generator/*": ["src/generator/*"],
+      "@resource/*": ["src/resource/*"]
     },
     "isolatedModules": true,
     "jsxImportSource": "@emotion/react"
   },
-  "files": ["typings/twin.d.ts", "typings/declaration.d.ts"],
+  "files": ["src/typings/twin.d.ts", "src/typings/declaration.d.ts"],
   "include": ["src/**/*"],
   "exclude": ["node_modules"]
 }

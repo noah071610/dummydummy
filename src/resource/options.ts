@@ -1,0 +1,17 @@
+export const domains = [
+  '.app',
+  '.cat',
+  '.com',
+  '.com',
+  '.com',
+  '.com',
+  '.com',
+  '.com',
+  '.co.kr',
+  '.co.jp',
+  '.shop',
+  '.mobi',
+  '.net',
+  '.org',
+  '.tel',
+];

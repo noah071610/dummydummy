@@ -1,4 +1,6 @@
 import { css } from '@emotion/react';
+import tw from 'twin.macro';
+import { MQ } from './customStyle';
 
 export const globalStyle = () => css`
   html,
@@ -111,11 +113,11 @@ export const globalStyle = () => css`
     outline: none;
     line-height: 1em;
     box-sizing: border-box;
+    font-family: 'Noto Sans KR', sans-serif;
   }
 
   body {
     background-color: #e5e5e5;
-    font-family: 'Noto Sans KR', sans-serif;
   }
 
   a {
@@ -155,6 +157,27 @@ export const globalStyle = () => css`
     color: #332226;
   }
 
+  .cm-line {
+    ${tw`text-[#a9b7c6]! text-18px! py-3px!`}
+    font-family: monospace !important;
+    * {
+      font-family: monospace !important;
+    }
+  }
+  .cm-focused {
+    ${tw`outline-none!`}
+    outline-offset: 0 !important;
+  }
+  .cm-editor {
+    ${tw`py-15px! px-30px! rounded-20px!`}
+    ${MQ('700px')} {
+      ${tw`px-15px!`}
+    }
+  }
+  .cm-gutters {
+    display: none !important;
+  }
+
   input,
   textarea {
     border: none;
@@ -166,6 +189,26 @@ export const globalStyle = () => css`
     }
     &::placeholder {
       color: rgba(0, 0, 0, 0.4);
+    }
+  }
+
+  @keyframes flip {
+    from {
+      transform: rotateY(0);
+    }
+
+    to {
+      transform: rotateY(360deg);
+    }
+  }
+
+  @keyframes dicing {
+    from {
+      transform: rotateZ(0);
+    }
+
+    to {
+      transform: rotateZ(720deg);
     }
   }
 `;
