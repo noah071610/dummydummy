@@ -28,21 +28,27 @@ function ProfileSection() {
         </p>
         <InfoContainer>
           <span>© 2022 DODAMIND CORP ALL RIGHTS RESERVED</span>
-          <a target="_blank" rel="noreferer" href="https://home.doda.app">
-            툴 제작사
-          </a>{' '}
-          |{' '}
-          <a
-            target="_blank"
-            rel="noreferer"
-            href="https://blog.doda.app/career"
-          >
-            인재채용
-          </a>{' '}
-          |{' '}
-          <a target="_blank" rel="noreferer" href="mailto:noah071610@gmail.com">
-            피드백 문의
-          </a>
+          <div className="info-anchor-list">
+            <a target="_blank" rel="noreferer" href="https://home.doda.app">
+              툴 제작사
+            </a>{' '}
+            |{' '}
+            <a
+              target="_blank"
+              rel="noreferer"
+              href="https://blog.doda.app/career"
+            >
+              인재채용
+            </a>{' '}
+            |{' '}
+            <a
+              target="_blank"
+              rel="noreferer"
+              href="mailto:noah071610@gmail.com"
+            >
+              피드백 문의
+            </a>
+          </div>
         </InfoContainer>
       </Description>
     </ProfileSectionWrapper>

@@ -10,11 +10,12 @@ import { useCallback } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import tw, { styled } from 'twin.macro';
 import Aside from './Aside';
+import Header from './Header';
 import ResultModal from './ResultModal';
 
 const Body = styled.div`
   ${tw`h-screen`}
-  ${FLEX()}
+  ${FLEX('col')}
   .snackbar {
     div {
       align-items: center;
@@ -23,22 +24,33 @@ const Body = styled.div`
       ${tw`font-bold`}
     }
   }
+  ${MQ('700px')} {
+    ${tw`bg-bg`}
+  }
 `;
 
 const Main = styled.main`
   ${tw`w-[1120px] h-[730px] bg-bg rounded-20px overflow-hidden`}
   ${GRID('2fr 5fr')}
-  ${MQ('1120px')} {
+  ${MQ('960px')} {
     ${tw`w-full h-full`}
+    border-radius: 0;
+  }
+  ${MQ('700px')} {
+    ${tw`block`}
   }
 `;
 
 const ContentWrapper = styled.div`
   ${tw`h-[700px] m-15px overflow-hidden`}
+  ${MQ('960px')} {
+    ${tw`m-10px`}
+    height: calc(100vh - 20px);
+  }
 `;
 
 const ContentInner = styled.div<{ curPage: any }>`
-  ${tw`h-full transition-all relative`}
+  ${tw`h-auto transition-all relative`}
   transition: 0.32s all cubic-bezier(0,.72,0,1.01);
   transform: translateY(
     ${(p) =>
@@ -50,6 +62,30 @@ const ContentInner = styled.div<{ curPage: any }>`
         ? '-1640px'
         : '-240px'}
   );
+  ${MQ('960px')} {
+    transform: translateY(
+      ${(p) =>
+        p.curPage.includes('#profile')
+          ? '0'
+          : p.curPage.includes('#template')
+          ? 'calc(-100vh - 210px)'
+          : p.curPage.includes('#trigger')
+          ? 'calc(-200vh - 190px)'
+          : '-240px'}
+    );
+  }
+  ${MQ('700px')} {
+    transform: translateY(
+      ${(p) =>
+        p.curPage.includes('#profile')
+          ? '50px'
+          : p.curPage.includes('#template')
+          ? 'calc(-100vh - 370px + 120px)'
+          : p.curPage.includes('#trigger')
+          ? 'calc(-200vh - 370px + 175px)'
+          : '-320px'}
+    );
+  }
 `;
 
 function App() {
@@ -63,6 +99,7 @@ function App() {
 
   return (
     <Body>
+      <Header />
       <Main>
         <Aside />
         <ContentWrapper>

@@ -19,7 +19,7 @@ export const Logo = styled.div`
 
 export const Background = styled.div`
   ${tw`w-full h-[150px]`}
-  background: url('/images/pattern.jpeg') no-repeat center center / 100%;
+  background: url('/images/pattern.jpeg') no-repeat center center / 100% 100%;
 `;
 
 export const ProfileContainer = styled.div`

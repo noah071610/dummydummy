@@ -1,5 +1,5 @@
 import { TriggerOptionList } from '@typings';
-import { memo, useCallback, useMemo, useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 import { dummyMatcher } from 'src/utils/dummyMatcher';
 import { CodeBlock, Left, Right, TitleWrapper, TriggerBox } from '../styles';
 
@@ -16,16 +16,6 @@ function OptionTriggerList({ name, option }: IProps) {
   const onClickOptionalTriggerCodeBlock = useCallback((triggerName: string) => {
     setOptionalTriggerExample(dummyMatcher(triggerName));
   }, []);
-
-  const [min, max] = useMemo(() => {
-    if (name === 'number') {
-      return [100, 999];
-    }
-    if (name === 'price') {
-      return [39800, 98000];
-    }
-    return [0, 0];
-  }, [name]);
 
   return (
     <TriggerBox>

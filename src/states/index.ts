@@ -6,6 +6,11 @@ export const curPageState = atom({
   default: window.location.hash,
 });
 
+export const headerMenuState = atom({
+  key: 'headerMenuState',
+  default: false,
+});
+
 export const snackbarState = atom<{
   isOpen: boolean;
   message: string;

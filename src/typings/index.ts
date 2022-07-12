@@ -8,7 +8,7 @@ export interface NavSubMenu {
   materialIcon?: EmotionJSX.Element;
 }
 
-export type NavMenuValue = 'dash' | 'trigger' | 'template';
+export type NavMenuValue = 'dash' | 'trigger' | 'template' | 'profile';
 export interface NavMenu {
   label: string;
   value: NavMenuValue;

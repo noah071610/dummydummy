@@ -31,7 +31,7 @@ import {
 } from 'src/resource/profile';
 import { stations } from 'src/resource/stations';
 
-const commentRegExp = new RegExp('//.*\n', 'gm');
+const commentRegExp = new RegExp('//.*\\n', 'gm');
 const matcherList: {
   key: string;
   list?: any[];
@@ -152,7 +152,7 @@ export function dummyMatcher(origin: string) {
   for (let i = 0; i < matcherList.length; i++) {
     const item = matcherList[i];
     const regExp = new RegExp(
-      `\\${item.key}((\\(.+[^\)]\\))?|(\\[[0-9]*\\])?|({[0-9]+(,[0-9]+)?})?)+`,
+      `\\${item.key}((\\(.+[^\\)]\\))?|(\\[[0-9]*\\])?|({[0-9]+(,[0-9]+)?})?)+`,
       'gm'
     );
     const matchedKey = origin.match(regExp);

@@ -1,3 +1,9 @@
+function priceToString(price: any) {
+  const parts = price.toString().split('.');
+  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  return parts.join('.');
+}
+
 export const priceRangeGenerator = (
   range: number[],
   option?: {
@@ -15,6 +21,7 @@ export const priceRangeGenerator = (
     (prefix ?? '') + String(Math.round(target / gap) * gap) + (suffix ?? '');
   if (gap > max) return 0;
   return comma
-    ? answer.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')
-    : answer;
+    ? priceToString(answer)
+    : // .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')
+      answer;
 };

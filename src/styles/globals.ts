@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 import tw from 'twin.macro';
+import { MQ } from './customStyle';
 
 export const globalStyle = () => css`
   html,
@@ -169,6 +170,9 @@ export const globalStyle = () => css`
   }
   .cm-editor {
     ${tw`py-15px! px-30px! rounded-20px!`}
+    ${MQ('700px')} {
+      ${tw`px-15px!`}
+    }
   }
   .cm-gutters {
     display: none !important;

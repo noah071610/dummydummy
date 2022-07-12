@@ -79,9 +79,12 @@ const menuList: NavMenu[] = [
     icon: faGear,
   },
 ];
-//
 
-function Nav() {
+interface IProps {
+  isInHeader?: boolean;
+}
+
+function Nav({ isInHeader }: IProps) {
   const [curPageData, setCurPageState] = useRecoilState(curPageState);
   const curPage = useMemo(
     () =>
@@ -89,12 +92,26 @@ function Nav() {
         ? 'template'
         : curPageData.includes('trigger-')
         ? 'trigger'
+        : curPageData.includes('profile') && isInHeader
+        ? 'profile'
         : 'dash',
-    [curPageData]
+    [curPageData, isInHeader]
   );
   return (
     <NavWrapper>
       <MenuList>
+        {isInHeader && (
+          <SubMenu
+            className={`main_menu ${curPage === 'profile' ? 'is-active' : ''}`}
+            type={'profile'}
+            menu={{
+              label: '더미더미에 관하여',
+              value: 'profile',
+              icon: faUser,
+            }}
+            isInHeader={isInHeader}
+          />
+        )}
         {menuList.map((v, i) => {
           if (false) {
           } else {
@@ -106,6 +123,7 @@ function Nav() {
                 type={v.value}
                 menu={v}
                 key={`menu-${i}`}
+                isInHeader={isInHeader}
               />
             );
           }

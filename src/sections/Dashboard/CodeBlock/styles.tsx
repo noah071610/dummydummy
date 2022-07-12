@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { FLEX } from '@styles/customStyle';
+import { FLEX, MQ } from '@styles/customStyle';
 import tw from 'twin.macro';
 
 export const CodeBlockWrapper = styled.div`
@@ -13,5 +13,19 @@ export const CodeBlockWrapper = styled.div`
   }
   .cm-theme {
     ${tw`w-[770px]`}
+  }
+  ${MQ('960px')} {
+    .cm-theme {
+      width: 100%;
+      height: calc(100vh - 20px - 70px);
+    }
+    .cm-editor {
+      height: 100%;
+    }
+  }
+  ${MQ('700px')} {
+    .cm-theme {
+      height: calc(100vh - 50px - 90px);
+    }
   }
 `;

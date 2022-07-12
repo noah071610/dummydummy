@@ -102,6 +102,6 @@ export const GRID = (columns: string, gap?: string, row?: string) =>
     ${gap ? `gap:${gap};` : ''}
   ` as const;
 
-export const MQ = (size: string) => `
+export const MQ = (size: '960px' | '700px' | '450px') => `
 @media (max-width: ${size})
 `;

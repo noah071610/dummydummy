@@ -127,7 +127,6 @@ function ResultModal() {
         <h2>결괏값 확인 💮</h2>
         <CodeMirror
           value={resultCode}
-          height="695px"
           readOnly={true}
           theme={dracula}
           extensions={[

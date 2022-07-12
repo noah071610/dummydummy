@@ -40,13 +40,19 @@ function TriggerList({ name, desc, options, randomExampleType }: IProps) {
   const [randomExampleKeyword, setRandomExampleKeyword] = useState<
     null | string
   >(null);
-  const testRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (testRef?.current && curPage === `#trigger-${name}`) {
-      (testRef as any).current!.scrollIntoView();
+    if (
+      !randomExampleType &&
+      triggerRef?.current &&
+      curPage === `#trigger-${name}`
+    ) {
+      setTimeout(() => {
+        // (triggerRef as any).current.scrollIntoView();
+      }, 512);
     }
-  }, [curPage]);
+  }, [curPage, name, triggerRef, randomExampleType]);
 
   useEffect(() => {
     if (randomExampleType) {
@@ -67,7 +73,7 @@ function TriggerList({ name, desc, options, randomExampleType }: IProps) {
   }, [randomExampleType, name]);
 
   return (
-    <TriggerListWrapper ref={testRef} id={`#trigger-${name}`}>
+    <TriggerListWrapper ref={triggerRef} id={`#trigger-${name}`}>
       <TriggerBox>
         <Left>
           <TitleWrapper>
