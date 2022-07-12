@@ -114,6 +114,27 @@ export const globalStyle = () => css`
     line-height: 1em;
     box-sizing: border-box;
     font-family: 'Noto Sans KR', sans-serif;
+    &::-webkit-scrollbar {
+      background-color: #fff;
+      width: 16px;
+    }
+
+    /* background of the scrollbar except button or resizer */
+    &::-webkit-scrollbar-track {
+      background-color: #fff;
+    }
+
+    /* scrollbar itself */
+    &::-webkit-scrollbar-thumb {
+      background-color: #babac0;
+      border-radius: 16px;
+      border: 4px solid #fff;
+    }
+
+    /* set button(top and bottom of the scrollbar) */
+    &::-webkit-scrollbar-button {
+      display: none;
+    }
   }
 
   body {
@@ -164,12 +185,27 @@ export const globalStyle = () => css`
       font-family: monospace !important;
     }
   }
+  .cm-theme,
+  .cm-scroller {
+    &::-webkit-scrollbar {
+      display: none !important;
+    }
+    /* Hide scrollbar for IE, Edge and Firefox */
+    -ms-overflow-style: none !important; /* IE and Edge */
+    scrollbar-width: none !important; /* Firefox */
+  }
   .cm-focused {
     ${tw`outline-none!`}
     outline-offset: 0 !important;
   }
   .cm-editor {
     ${tw`py-15px! px-30px! rounded-20px!`}
+    &::-webkit-scrollbar {
+      display: none !important;
+    }
+    /* Hide scrollbar for IE, Edge and Firefox */
+    -ms-overflow-style: none !important; /* IE and Edge */
+    scrollbar-width: none !important; /* Firefox */
     ${MQ('700px')} {
       ${tw`px-15px!`}
     }

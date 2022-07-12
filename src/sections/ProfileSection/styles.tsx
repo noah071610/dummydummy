@@ -3,7 +3,7 @@ import { FLEX, GRID, MQ } from '@styles/customStyle';
 import tw from 'twin.macro';
 
 export const ProfileSectionWrapper = styled.section`
-  ${tw`overflow-scroll h-[240px] relative p-10px pb-50px`}
+  ${tw`h-[240px] relative p-10px pb-50px`}
   ${GRID('180px 1fr', '50px')}
   ${MQ('700px')} {
     ${tw`block h-[370px]`}

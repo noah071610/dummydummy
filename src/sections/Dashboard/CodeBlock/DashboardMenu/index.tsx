@@ -1,7 +1,6 @@
 import { BootstrapTooltip } from '@components/BootstrapTooltip';
 import {
   faArrowRotateLeft,
-  faList,
   faPenToSquare,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -13,7 +12,7 @@ import { DashboardMenuContainer, MenuIconButton } from './styles';
 
 const menuList = [
   { label: '초기화', value: 'reset', icon: faArrowRotateLeft },
-  { label: '트리거 숏컷', value: 'trigger', icon: faList },
+  // { label: '트리거 숏컷', value: 'trigger', icon: faList }, TODO:
   { label: '결과보기', value: 'result', icon: faPenToSquare },
 ];
 
