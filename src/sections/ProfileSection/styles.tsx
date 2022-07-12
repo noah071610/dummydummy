@@ -19,7 +19,7 @@ export const ImageWrapper = styled.div`
 `;
 export const Image = styled.div`
   ${tw`w-full h-full`}
-  background: url('/images/dummy-icon.png') no-repeat center center / 100%;
+  background: url('./images/dummy-icon.png') no-repeat center center / 100%;
   ${MQ('700px')} {
     ${tw`w-100px h-100px ml-15px`}
   }

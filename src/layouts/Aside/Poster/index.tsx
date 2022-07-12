@@ -19,15 +19,15 @@ import {
 const socials = [
   {
     icon: faGithub,
-    link: '',
+    link: 'https://github.com/noah071610',
   },
   {
     icon: faInstagram,
-    link: '',
+    link: 'https://www.instagram.com/noahh_jang/',
   },
   {
     icon: faHome,
-    link: '',
+    link: 'https://home.doda.app/',
   },
 ];
 

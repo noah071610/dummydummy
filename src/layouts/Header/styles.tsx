@@ -28,5 +28,5 @@ export const LogoWrapper = styled.div`
 `;
 export const Logo = styled.div`
   ${tw`w-20px h-20px transition-all ml-2px`}
-  background: url('/images/dummy-icon.png') no-repeat center center / 100% 100%;
+  background: url('./images/dummy-icon.png') no-repeat center center / 100% 100%;
 `;
