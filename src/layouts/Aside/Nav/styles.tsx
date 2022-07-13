@@ -17,7 +17,7 @@ export const MenuList = styled.ul`
     ${tw`block relative rounded-15px mx-10px mt-5px`}
     button {
       ${tw`block text-left w-full h-full
-    px-20px py-12px transition`}
+          px-20px py-12px transition`}
       transition: 0.2s all;
       ${FLEX('between', 'center')}
       span {

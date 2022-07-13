@@ -33,7 +33,7 @@ export const MenuIconButton = styled.button<{ isResult: boolean }>`
       }
     }
   }
-  &.trigger {
+  &.result {
     &:hover {
       svg {
         animation: heartBeat 1.2s ease-in-out;

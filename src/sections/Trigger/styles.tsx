@@ -11,6 +11,10 @@ export const TriggerSectionWrapper = styled.section`
     height: calc(100vh - 30px);
   }
   ${MQ('450px')} {
-    ${tw` pt-30px`}
+    ${tw`pt-30px`}
   }
+`;
+
+export const TriggerSectionInner = styled.div`
+  ${tw`h-auto`}
 `;

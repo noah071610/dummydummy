@@ -21,13 +21,13 @@ function ProfileSection() {
           <h1>더미더미 (Dummy Dummy)</h1>
         </TitleWrapper>
         <p>
-          더미더미는 <b>계좌번호, 한국주소</b> 등 다른 툴에서는 좀 처럼 찾기
+          더미더미는 <b>계좌번호, 한국 주소</b> 등 다른 툴에서는 좀처럼 찾기
           힘든
           <br />
           <b>한국어 친화적인 더미데이터툴</b>을 만들고자 제작했습니다.
         </p>
         <InfoContainer>
-          <span>© 2022 DODAMIND CORP ALL RIGHTS RESERVED</span>
+          <span>© 2022 NOAH JANG ALL RIGHTS RESERVED</span>
           <div className="info-anchor-list">
             <a target="_blank" rel="noreferer" href="https://home.doda.app">
               툴 제작사

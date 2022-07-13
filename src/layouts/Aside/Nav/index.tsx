@@ -90,7 +90,7 @@ function Nav({ isInHeader }: IProps) {
     () =>
       curPageData.includes('template-')
         ? 'template'
-        : curPageData.includes('trigger-')
+        : curPageData.includes('trigger')
         ? 'trigger'
         : curPageData.includes('profile') && isInHeader
         ? 'profile'

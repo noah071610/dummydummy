@@ -52,6 +52,7 @@ const ContentWrapper = styled.div`
 const ContentInner = styled.div<{ curPage: any }>`
   ${tw`h-auto transition-all relative`}
   transition: 0.32s all cubic-bezier(0,.72,0,1.01);
+  ${(p) => p.curPage.includes('#trigger') && 'transition:none;'};
   transform: translateY(
     ${(p) =>
       p.curPage.includes('#profile')
@@ -83,7 +84,7 @@ const ContentInner = styled.div<{ curPage: any }>`
           ? 'calc(-100vh - 370px + 120px)'
           : p.curPage.includes('#trigger')
           ? 'calc(-200vh - 370px + 175px)'
-          : '-320px'}
+          : '-310px'}
     );
   }
 `;

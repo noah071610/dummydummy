@@ -43,16 +43,13 @@ function TriggerList({ name, desc, options, randomExampleType }: IProps) {
   const triggerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (
-      !randomExampleType &&
-      triggerRef?.current &&
-      curPage === `#trigger-${name}`
-    ) {
-      setTimeout(() => {
-        // (triggerRef as any).current.scrollIntoView();
-      }, 512);
+    if (triggerRef?.current && curPage === `#trigger-${name}`) {
+      triggerRef.current.scrollIntoView({
+        block: 'end',
+        behavior: 'smooth',
+      });
     }
-  }, [curPage, name, triggerRef, randomExampleType]);
+  }, [curPage, name, triggerRef]);
 
   useEffect(() => {
     if (randomExampleType) {
