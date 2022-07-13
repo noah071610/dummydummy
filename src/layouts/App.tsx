@@ -141,7 +141,7 @@ function App() {
           {message}
         </Alert>
       </Snackbar>
-      {!isAlreadySeenAutoSave && (
+      {!isOpen && !isAlreadySeenAutoSave && (
         <Snackbar
           anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
           autoHideDuration={3000}
