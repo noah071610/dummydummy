@@ -1,6 +1,6 @@
 import { javascript } from '@codemirror/lang-javascript';
 import { json } from '@codemirror/lang-json';
-import { dashboardState } from '@states';
+import { dashboardState, isChangedState } from '@states';
 import { CodeBlockType } from '@typings';
 import { dracula } from '@uiw/codemirror-theme-dracula';
 import CodeMirror from '@uiw/react-codemirror';
@@ -16,6 +16,7 @@ interface IProps {
 function CodeBlock({ type }: IProps) {
   const [{ javascriptCode, jsonCode }, setDashboardState] =
     useRecoilState(dashboardState);
+  const [isChanged, setIsChanged] = useRecoilState(isChangedState);
   const onChangeDashboardCode = useCallback(
     (value: any) => {
       if (type === 'json') {
@@ -26,8 +27,11 @@ function CodeBlock({ type }: IProps) {
       } else {
         setDashboardState((prev) => ({ ...prev, javascriptCode: value }));
       }
+      if (!isChanged) {
+        setIsChanged(true);
+      }
     },
-    [type]
+    [type, jsonCode, javascriptCode, isChanged]
   );
 
   return (

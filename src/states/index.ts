@@ -11,6 +11,11 @@ export const headerMenuState = atom({
   default: false,
 });
 
+export const isChangedState = atom({
+  key: 'isChangedState',
+  default: false,
+});
+
 export const snackbarState = atom<{
   isOpen: boolean;
   message: string;
@@ -29,8 +34,12 @@ export const dashboardState = atom<{
 }>({
   key: 'dashboardState',
   default: {
-    jsonCode: exampleJsonCode,
-    javascriptCode: exampleJavascriptCode,
+    jsonCode: localStorage.getItem('jsonDummyCode')
+      ? JSON.parse(localStorage.getItem('jsonDummyCode') ?? '')
+      : exampleJsonCode,
+    javascriptCode: localStorage.getItem('javascriptDummyCode')
+      ? JSON.parse(localStorage.getItem('javascriptDummyCode') ?? '')
+      : exampleJavascriptCode,
     onResultModal: false,
   },
 });

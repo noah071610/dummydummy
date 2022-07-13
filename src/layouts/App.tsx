@@ -3,10 +3,15 @@ import DashboardSection from '@sections/Dashboard';
 import ProfileSection from '@sections/ProfileSection';
 import TemplateSection from '@sections/Template';
 import TriggerSection from '@sections/Trigger';
-import { curPageState, dashboardState, snackbarState } from '@states';
+import {
+  curPageState,
+  dashboardState,
+  isChangedState,
+  snackbarState,
+} from '@states';
 import { FLEX, GRID, MQ } from '@styles/customStyle';
 import 'animate.css';
-import { useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import tw, { styled } from 'twin.macro';
 import Aside from './Aside';
@@ -90,13 +95,25 @@ const ContentInner = styled.div<{ curPage: any }>`
 `;
 
 function App() {
-  const { onResultModal } = useRecoilValue(dashboardState);
+  const [{ javascriptCode, jsonCode, onResultModal }, setDashboardState] =
+    useRecoilState(dashboardState);
+  const [isChanged, setIsChanged] = useRecoilState(isChangedState);
   const [{ isOpen, message }, setSnackbarState] = useRecoilState(snackbarState);
   const curPage = useRecoilValue(curPageState);
+  const [isAlreadySeenAutoSave, setIsAlreadySeenAutoSave] = useState(false);
 
   const handleClose = useCallback(() => {
     setSnackbarState((prev) => ({ ...prev, isOpen: false }));
   }, []);
+
+  const handleCloseAutoSave = useCallback(() => {
+    setIsAlreadySeenAutoSave(true);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('jsonDummyCode', JSON.stringify(jsonCode));
+    localStorage.setItem('javascriptDummyCode', JSON.stringify(javascriptCode));
+  }, [javascriptCode, jsonCode]);
 
   return (
     <Body>
@@ -124,6 +141,19 @@ function App() {
           {message}
         </Alert>
       </Snackbar>
+      {!isAlreadySeenAutoSave && (
+        <Snackbar
+          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+          autoHideDuration={3000}
+          className="snackbar"
+          open={isChanged}
+          onClose={handleCloseAutoSave}
+        >
+          <Alert severity="success" sx={{ width: '100%' }}>
+            자동저장이 시작됩니다!
+          </Alert>
+        </Snackbar>
+      )}
     </Body>
   );
 }
