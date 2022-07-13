@@ -52,7 +52,7 @@ export const SocialContainer = styled.div`
 export const SocialInner = styled.div`
   ${tw``}
 `;
-export const SocialIcon = styled.button`
+export const SocialIcon = styled.a`
   ${tw`bg-bg rounded-15px border-1px border-solid border-border`}
   box-shadow: 0 0 15px rgba(0,0,0,0.15);
   ${FLEX()}

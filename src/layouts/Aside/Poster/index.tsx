@@ -58,7 +58,12 @@ function Poster() {
         </LogoWrapper>
         <SocialContainer>
           {socials.map((v, i) => (
-            <SocialIcon key={`social-${i}`}>
+            <SocialIcon
+              href={v.link}
+              target="_blank"
+              rel="noreferer"
+              key={`social-${i}`}
+            >
               <FontAwesomeIcon style={iconStyle('20px')} icon={v.icon} />
             </SocialIcon>
           ))}
