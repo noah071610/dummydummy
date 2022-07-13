@@ -80,7 +80,7 @@ export const templateState = atom<{
   color: "$color(hex)"
 };`,
       'introduce-json': `{
-  "introduce" : "안녕하세요. 저는 $fullName 이라고 하며 $age $gender입니다.\\n저의 직업은 $occupation 이며 현재 학력은 $education 입니다.\\n제 주소는 $address ($postalCode)인데\\n제 자가이며 집 가격은 $number{10,30}억 입니다.\\n취미는 $habit 이며 $mbti 이에요. 공통된 관심사가 있으면 좋겠네요.\\n\\n잘 부탁드립니다."
+  "introduce" : "안녕하세요. 저는 $fullName 이라고 하며 $age $gender입니다.\\n저의 직업은 $occupation 이며 현재 학력은 $education 입니다.\\n제 주소는 $address ($postalCode)인데\\n제 자가이며 집 가격은 $number{10,30}억 입니다.\\n취미는 $habit 이며 MBTI는 $mbti 이에요. 공통된 관심사가 있으면 좋겠네요.\\n\\n잘 부탁드립니다."
 }`,
       'introduce-javascript': `const introduce = 
 \`
@@ -88,7 +88,7 @@ export const templateState = atom<{
   저의 직업은 $occupation 이며 현재 학력은 $education 입니다.
   제 주소는 $address ($postalCode)인데 
   제 자가이며 집 가격은 $number{10,30}억 입니다.
-  취미는 $habit 이며 $mbti 이에요. 공통된 관심사가 있으면 좋겠네요.
+  취미는 $habit 이며 MBTI는 $mbti 이에요. 공통된 관심사가 있으면 좋겠네요.
 
   잘 부탁드립니다.
 \`;`,
@@ -105,7 +105,7 @@ export const templateState = atom<{
     "creditCardNumber":"$creditCardNumber",
     "back":"$bank",
     "accountNumber":"$accountNumber"
-  }
+  },
   "date": "$date(yyyy)"
 }`,
       'pricing-javascript': `const data = {
@@ -121,7 +121,7 @@ export const templateState = atom<{
     creditCardNumber:"$creditCardNumber",
     back:"$bank",
     accountNumber:"$accountNumber"
-  }
+  },
   date: "$date(yyyy)"
 }`,
     },
