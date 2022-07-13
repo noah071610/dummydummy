@@ -7,7 +7,7 @@ export const HeaderMenuWrapper = styled.div<{ onHeaderMenu: boolean }>`
   transition:transform 0.22s cubic-bezier(.17,.67,0,1.07);
   transform: translateY(${(p) => (p.onHeaderMenu ? '50px' : '-100vh')});
   ${NavWrapper} {
-    ${tw`mt-0 py-20px overflow-scroll`}
+    ${tw`mt-0 py-20px overflow-y-scroll`}
     height: calc(100vh);
   }
 `;
