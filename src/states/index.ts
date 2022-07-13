@@ -92,26 +92,38 @@ export const templateState = atom<{
 
   잘 부탁드립니다.
 \`;`,
-      'resume-json': `const product = {
-  name: $product,
-  seller: $fullName,
-  brand: $company,
-  date: $date,
-  review: $number,
-  size: $number x $number x $number,
-  color: $color
-};`,
-      'resume-javascript': `const product = {
-  name: $product,
-  seller: $fullName,
-  brand: $company,
-  date: $date,
-  review: $number,
-  size: $number x $number x $number,
-  color: $color
-};`,
-      'pricing-json': ``,
-      'pricing-javascript': ``,
+      'pricing-json': `{
+  "user": {
+    "firstName": "$firstName",
+    "lastName": "$lastName",
+    "gender": "$gender",
+  },
+  "price": "$price",
+  "product": "$product",
+  "paymentInfo": {
+    "company":"$creditCardCompany",
+    "creditCardNumber":"$creditCardNumber",
+    "back":"$bank",
+    "accountNumber":"$accountNumber"
+  }
+  "date": "$date(yyyy)"
+}`,
+      'pricing-javascript': `const data = {
+  user: {
+    firstName: "$firstName",
+    lastName: "$lastName",
+    gender: "$gender",
+  },
+  price: "$price",
+  product: "$product",
+  paymentInfo: {
+    company:"$creditCardCompany",
+    creditCardNumber:"$creditCardNumber",
+    back:"$bank",
+    accountNumber:"$accountNumber"
+  }
+  date: "$date(yyyy)"
+}`,
     },
   },
 });

@@ -7,6 +7,7 @@ import { dateGenerator } from '@generator/dateGenerator';
 import { emailGenerator } from '@generator/emailGenerator';
 import { ipGenerator } from '@generator/ipGenerator';
 import { linkGenerator } from '@generator/linkGenerator';
+import { loremGenerator } from '@generator/loremGenerator';
 import { nameGenerator } from '@generator/nameGenerator';
 import { numberRangeGenerator } from '@generator/numberRangeGenerator';
 import { postalCodeGenerator } from '@generator/postalCodeGenerator';
@@ -71,6 +72,7 @@ const matcherList: {
       numberRangeGenerator('random', range ?? [0, 100000], type === 'comma'),
   },
   { key: '$university', list: universities },
+  { key: '$university', list: universities },
   { key: '$education', list: education },
   { key: '$station', list: stations },
   { key: '$email', generator: emailGenerator },
@@ -80,6 +82,7 @@ const matcherList: {
   },
   { key: '$artist', list: artists },
   { key: '$food', list: foods },
+  { key: '$lorem', generator: (type) => loremGenerator(type === 'long') },
   { key: '$drinking', list: drinking },
   { key: '$gender', list: gender },
   { key: '$smoking', list: smoking },

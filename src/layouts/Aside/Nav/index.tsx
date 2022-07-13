@@ -7,7 +7,6 @@ import {
   faGear,
   faPaste,
   faUser,
-  faUserPen,
 } from '@fortawesome/free-solid-svg-icons';
 import DataObjectIcon from '@mui/icons-material/DataObject';
 import { triggerList } from '@resource/triggers';
@@ -54,11 +53,6 @@ const menuList: NavMenu[] = [
         label: '자기소개',
         value: 'introduce',
         icon: faUser,
-      },
-      {
-        label: '이력서',
-        value: 'resume',
-        icon: faUserPen,
       },
       {
         label: '결제정보',

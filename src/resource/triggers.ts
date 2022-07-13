@@ -20,12 +20,20 @@ export const triggerList: TriggerList[] = [
     ],
   },
   {
+    value: 'gender',
+    desc: '남성 또는 여성 중 하나를',
+  },
+  {
     value: 'age',
     desc: '나이를',
   },
   {
     value: 'tall',
     desc: '신장을',
+  },
+  {
+    value: 'mbti',
+    desc: 'MBTI 타입 중 하나를',
   },
   {
     value: 'date',
@@ -50,12 +58,8 @@ export const triggerList: TriggerList[] = [
     ],
   },
   {
-    value: 'gender',
-    desc: '남성 또는 여성 중 하나를',
-  },
-  {
-    value: 'mbti',
-    desc: 'MBTI 타입 중 하나를',
+    value: 'email',
+    desc: '무작위 이메일을',
   },
   {
     value: 'link',
@@ -72,10 +76,6 @@ export const triggerList: TriggerList[] = [
   {
     value: 'drinking',
     desc: '음주를 하지 않음 ~ 5병 이상 (6개 선택지) 중 하나를',
-  },
-  {
-    value: 'email',
-    desc: '무작위 이메일을',
   },
   {
     value: 'mobileCarrier',
@@ -156,6 +156,16 @@ export const triggerList: TriggerList[] = [
   {
     value: 'creditCardNumber',
     desc: '실제 카드번호 형식을 적용한 무작위 카드번호를',
+  },
+  {
+    value: 'lorem',
+    desc: '무작위 한국어 문장을',
+    options: [
+      {
+        value: 'long',
+        desc: '긴 문장의 무작위 한국어 문장을 반환합니다.',
+      },
+    ],
   },
   {
     value: 'ip',

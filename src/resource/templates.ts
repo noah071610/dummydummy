@@ -7,9 +7,7 @@ export const templateNames: { [key: string]: string } = {
 };
 
 export const exampleJsonCode = `{
-  "로엠":{
-    "lorem": "$lorem",
-  },
+  "lorem": "$lorem",
   "name": {
     "firstName": "$firstName",
     "lastName": "$lastName",
@@ -69,9 +67,7 @@ export const exampleJsonCode = `{
 };`;
 
 export const exampleJavascriptCode = `const data = {
-  로엠:{
-    lorem: '$lorem',
-  },
+  lorem: \`$lorem(long)\`,
   name: {
     firstName: '$firstName',
     lastName: '$lastName',
